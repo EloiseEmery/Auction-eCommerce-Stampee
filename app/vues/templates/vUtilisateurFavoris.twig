@@ -1,0 +1,64 @@
+<h2>{{ titre|upper }}</h2>
+<p class="pannel__messageRetourAction"><small>{{ messageRetourAction }}&nbsp;</small></p>
+<div class="grid grid--5-var">
+{% if favoris|length != 0 %}
+	{% for enchereFavorite in favoris %}
+	<div class="tile bg--tile bg--tile-timbre">
+		<div class="tile__container">
+			<div>
+				<p class="tile__lot">Lot #<strong>{{ enchereFavorite.timbre_id }}</strong></p>
+				<div class="wrapper--header tile__lot--red tile__timer" data-js-timer>
+					<strong><span class="days" data-js-enchere-day></span>d-</strong>
+					<strong><span class="hours" data-js-enchere-hour></span>h-</strong>
+					<strong><span class="minutes" data-js-enchere-min></span>m-</strong>
+					<strong><span class="seconds" data-js-enchere-sec></span>s</strong>
+					<div class="pannel__hidden" data-js-enchere-id>{{ enchereFavorite.enchere_id }}</div>
+					<div class="pannel__hidden" data-js-date-fin>{{ enchereFavorite.enchere_date_fin }}</div>
+				</div>
+			</div>
+		</div>
+		<div class="tile__wrapper">
+			<a href=".?entite=enchere&action=e_afficher&enchere_id={{ enchereFavorite.enchere_id }}">
+			<div class="tile__img-wrapper">			
+				{% for image in images %}
+					{% if image.enchere_id == enchereFavorite.enchere_id %}
+						{% if image.image_principale == 1 %}
+							<img class="tile__img" src="assets/img/timbres/{{ image.image_url }}" alt="Image d'une enchère" />
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+			</div>
+			</a>
+			<h3>{{ enchereFavorite.timbre_nom }}</h3>
+			<p class="tile__text">Mise courante | 	
+				{% for nbOffresEnchere in nbOffresEncheres %}
+					{% if enchereFavorite.enchere_id == nbOffresEnchere.EnchereId %}
+						<strong>
+							{% if nbOffresEnchere.NombreOffres != 0  %}
+							{{ nbOffresEnchere.NombreOffres }} 
+								{% if nbOffresEnchere.NombreOffres > 1 %} offres
+								{% elseif nbOffresEnchere.NombreOffres == 1 %} offre
+								{% endif %}
+							{% else %} Aucune offre.
+							{% endif %}
+						</strong>
+					{% endif %}
+				{% endfor %}
+			</p>
+			{% for derniereOffre in dernieresOffres %}
+				{% if enchereFavorite.enchere_id == derniereOffre.IdEnchereOffre %}
+				<span>{{ derniereOffre.MiseLaPlusHaute }} $</span>
+				<p class="tile__text-small"><small>dernière offre par {{ derniereOffre.DernierEnchérisseur }}</small></p>
+				{% endif %}
+			{% endfor %}
+			<p class="tile__text-small"><strong><small>Prix plancher : {{ enchereFavorite.enchere_prix_plancher }}$</small></strong></p>
+			<div class="tile__btn-container">
+				<div><a class="btn btn--timbre" href=".?entite=favoris&action=f_supprimer&enchere_id={{ enchereFavorite.enchere_id }}&redirect=u_favoris">Retirer des favoris</a></div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% else %}
+<p class="pannel-profil__text pannel-profil__text--enchere">Aucun favoris pour le moment.</p>
+{% endif %}

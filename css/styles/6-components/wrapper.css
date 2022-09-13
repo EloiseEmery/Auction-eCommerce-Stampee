@@ -1,0 +1,35 @@
+/*------------------------------------*\
+  wrapper / objects
+\*------------------------------------*/
+
+.wrapper {
+	margin: 0 8vw;
+}
+
+.wrapper--header {
+	display: flex;
+}
+
+.wrapper--header span {
+	padding-top: 10px;
+}
+
+.wrapper--hero {
+	padding-left: 25px;
+	padding-top: 125px;
+}
+.wrapper--menu-secondaire {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	flex-grow: 3;
+}
+
+.wrapper--header-page {
+	justify-content: right;
+	padding-top: 25px;
+}
+
+.wrapper--header-page > div > div {
+	background-color: var(--color-secondary);
+}

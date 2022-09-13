@@ -1,0 +1,250 @@
+<!-- HERO -->
+<div class="hero hero--accueil">
+	<div class="wrapper wrapper--hero">
+		<h1 class="hero__text">{{ titre }}</h1>
+		<h2 class="hero__text--sous-titre">Une plateforme d'enchère d'exception</h2>
+		<p class="hero__text hero__text--text-courant">Participer à une enchère n’aura jamais été aussi simple et rapide ! <br> Découvrez dès maintenant notre sélection.</p>
+		<a class="btn" href=".?entite=enchere&action=e_lister">Voir toutes les enchères</a>
+	</div>
+	<div class="grid grid--hero">
+		<div class="bg bg--blue">
+			<h2 class="bg--blue-title">Comment ça marche ?</h2>
+			<p class="hero__text">Aquérissez des timbres en quelques étapes : </p>
+			<ul>
+				<li><strong>1.</strong> Connectez-vous ou inscrivez-vous</li>
+				<li><strong>2.</strong> Utilisez la recherche avancé pour trouver la perle rare</li>
+				<li class="hero__text--text-courant-var"><strong>3.</strong> Misez et suivez vos enchères favorites facilement</li>
+			</ul>
+			<a class="link--border" href="#">En savoir plus</a><img class="icone-link-arrow" src="assets/img/png/icone-link-arrow.png" alt="icone fleche link"/>
+		</div>
+		<div class="bg bg--grey">
+			<h2>Découvrez les coups de coeur du Lord</h2>
+			<p class="hero__text--text-courant-var">Repérez l'icone <img class="icone-coup-coeur" src="assets/img/png/icone-coup-de-coeur.png" alt="icone coup de coeur lord"/> afin de trouver les enchères favorites de notre expert !</p>
+			<a class="link--border-blue link--border-blue--accueil" href="#">Voir tous les favoris</a><img class="icone-link-arrow" src="assets/img/png/icone-link-arrow-blue.png" alt="icone fleche link"/>
+		</div>
+		<div class="bg bg--white">
+			{% if oUtilisateurConnecter == null %}
+				<h2>Pas encore inscrit(e) ? </h2>
+				<p class="hero__text--text-courant">Misez et profitez pleinement de Stampee en tant que membre inscrit !</p>
+				<div class="btn__container">
+					<a class="btn btn--orange" href="admin?entite=utilisateur&action=u_ajouter">Devenir membre</a>
+					<a class="btn" href="admin?entite=utilisateur&action=u_connexion">Se connecter</a>
+				</div>
+			{% elseif oUtilisateurConnecter != null %}
+				<h2>Bonjour {{ oUtilisateurConnecter.utilisateur_prenom }} {{ oUtilisateurConnecter.utilisateur_nom }}</h2>
+				<p class="hero__text--text-courant">Ajouter et gérer facilement vos enchères ainsi que vos favoris !</p>
+				<div class="btn__container">
+					<a class="btn btn--orange" href=".?entite=utilisateur&action=u_encheres">Voir mes enchères</a>
+					<a class="btn" href=".?entite=utilisateur&action=u_favoris">Mes favoris</a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+<!-- CONTENU ACCUEIL -->
+<div class="wrapper">
+	<!-- section OFFRES EN VEDETTE : présentation des 5 dernières publication d'enchère -->
+	<section>
+		<h2>Offres en vedette</h2>
+		<div class="grid grid--5">
+			{% if encheres|length != 0 %}
+				{% set compteur = 0 %}
+				{% for enchere in encheres %}
+					{% set compteur = compteur + 1 %}
+					{% if compteur != 6 %}
+						<div class="tile bg--tile">
+							<a href=".?entite=enchere&action=e_afficher&enchere_id={{ enchere.enchere_id }}">
+							<div class="tile__container">
+								<div>
+									<p class="tile__lot">Lot #<strong>{{ enchere.timbre_id }}</strong></p>
+									{% if enchere.enchere_archive == 0 %}
+									<div class="wrapper--header tile__lot--red tile__timer" data-js-timer>
+										<strong><span class="days" data-js-enchere-day></span>d-</strong>
+										<strong><span class="hours" data-js-enchere-hour></span>h-</strong>
+										<strong><span class="minutes" data-js-enchere-min></span>m-</strong>
+										<strong><span class="seconds" data-js-enchere-sec></span>s</strong>
+										<div class="pannel__hidden" data-js-enchere-id>{{ enchere.enchere_id }}</div>
+										<div class="pannel__hidden" data-js-date-fin>{{ enchere.enchere_date_fin }}</div>
+									</div>
+									{% endif %}
+								</div>
+								{# <img class="icone-coup-coeur" src="assets/img/png/icone-coup-de-coeur.png" alt="icone coup de coeur lord"/> #}
+							</div>
+							<div class="tile__wrapper">
+								<div class="tile__img-wrapper">			
+									{% for image in images %}
+										{% if image.enchere_id == enchere.enchere_id %}
+											{% if image.image_principale == 1 %}
+												<img class="tile__img" src="assets/img/timbres/{{ image.image_url }}" alt="Image d'une enchère" />
+											{% endif %}
+										{% endif %}
+									{% endfor %}
+								</div>
+								<h3>{{ enchere.timbre_nom }}</h3>
+								{% if enchere.enchere_archive == 0 %}
+									<p class="tile__text">Mise courante | 	
+										{% for nbOffresEnchere in nbOffresEncheres %}
+											{% if enchere.enchere_id == nbOffresEnchere.EnchereId %}
+												<strong>
+													{% if nbOffresEnchere.NombreOffres != 0  %}
+													{{ nbOffresEnchere.NombreOffres }} 
+														{% if nbOffresEnchere.NombreOffres > 1 %} offres
+														{% elseif nbOffresEnchere.NombreOffres == 1 %} offre
+														{% endif %}
+													{% else %} Aucune offre.
+													{% endif %}
+												</strong>
+											{% endif %}
+										{% endfor %}
+									</p>
+									{% for derniereOffre in dernieresOffres %}
+										{% if enchere.enchere_id == derniereOffre.IdEnchereOffre %}
+										<span>{{ derniereOffre.MiseLaPlusHaute }} $</span>
+										<p class="tile__text-small"><small>dernière offre par {{ derniereOffre.DernierEnchérisseur }}</small></p>
+										{% endif %}
+									{% endfor %}
+									<div class="tile__btn-container">
+										<a class="btn btn--timbre btn--orange" href=".?entite=enchere&action=e_historique&enchere_id={{ enchere.enchere_id }}">
+										{% if oUtilisateurConnecter != null %} Miser
+										{% else %} Voir les détails
+										{% endif %}
+										</a>
+									</div>
+								{% else %}
+									<p class="tile__text">Mise gagnante | 	
+										{% for nbOffresEnchere in nbOffresEncheres %}
+											{% if enchere.enchere_id == nbOffresEnchere.EnchereId %}
+												<strong>Enchère&nbsp;terminée</strong>
+											{% endif %}
+										{% endfor %}
+									</p>
+									{% for derniereOffre in dernieresOffres %}
+										{% if enchere.enchere_id == derniereOffre.IdEnchereOffre %}
+										<span>{{ derniereOffre.MiseLaPlusHaute }} $</span>
+										<p class="tile__text-small"><small>Remportée par {{ derniereOffre.DernierEnchérisseur }}</small></p>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+							</div>
+							</a>
+						</div>
+					{% endif %}
+				{% endfor %}
+			{% else %}
+				{% if enchereArchive == 0 %}
+				<p class="gallery__text">Aucune enchère en vedette pour le moment.</p>
+				{% else %}
+				<p class="gallery__text">Aucune enchère archivée pour le moment.</p>
+				{% endif %}
+			{% endif %}
+		</div>
+	</section>
+
+	<!-- section CATEGORIES : présentation des catégories -->
+	<section>
+		<h2>Catégories</h2>
+		<div class="grid grid--3">
+			<div class="tile tile--center bg--tile">
+				<div class="tile__img-container tile__img-container--first">
+					<h3>Les plus populaire</h3>
+				</div>
+				<a class="btn" href="#">Voir tout</a>
+			</div>
+			<div class="tile tile--center bg--tile">
+				<div class="tile__img-container tile__img-container--second">
+					<h3>Bientôt terminées</h3>
+				</div>
+				<a class="btn" href="#">Voir tout</a>
+			</div>
+			<div class="tile tile--center bg--tile">
+				<div class="tile__img-container tile__img-container--third">
+					<h3>Nouvelles offres</h3>
+				</div>
+				<a class="btn" href="#">Voir tout</a>
+			</div>
+		</div>
+	</section>
+</div>
+<!-- section ACTUALITÉS : présentation des actualités récentes -->
+<section class="bg--blue">
+	<div class="wrapper">
+		<h2 class="bg--blue-title">Actualités</h2>
+		<h3 class="bg--blue-title">Récemment publié</h3>
+		<div class="grid grid--3-var">
+			<div class="tile bg--tile-white">
+				<small>Publié le 06/04/2022</small>
+				<div class="tile__container">
+					<img  src="assets/img/jpg/actualites/article-1.jpg" alt="Image du premier article"/>
+					<a class="btn" href="#">Lire l'article</a>
+				</div>
+				<h4>Comment j'ai appris à regarder les timbres</h4>
+				<small>Par Lord Réginald Stampee</small>
+				<p>
+					Nisi scelerisque eu ultrices vitae auctor
+					eu augue ut lectus. Sit amet cursus sit
+					amet. Leo vel orci porta non pulvinar
+					neque laoreet. Risus sed vulputate...
+				</p>
+			</div>
+			<div class="tile bg--tile-white">
+				<small>Publié le 05/04/2022</small>
+				<div class="tile__container">
+					<img  src="assets/img/jpg/actualites/article-2.jpg" alt="Image du deuxième article"/>
+					<a class="btn" href="#">Lire l'article</a>
+				</div>
+				<h4>Paradis des enchères - Une heure à Londre</h4>
+				<small>Par Lord Réginald Stampee</small>
+				<p>
+					Nisi scelerisque eu ultrices vitae auctor
+					eu augue ut lectus. Sit amet cursus sit
+					amet. Leo vel orci porta non pulvinar
+					neque laoreet. Risus sed vulputate...
+				</p>
+			</div>
+			<div class="tile tile--no-bg">
+				<a href="#"><div class="tile__container bg--no-bg">
+					<img width="75" src="assets/img/png/icone-timbre.png" alt="Icone d'un timbre"/>
+					<p class="link--border">Timbres</p><img class="icone-link-arrow" src="assets/img/png/icone-link-arrow.png" alt="icone fleche link"/>
+				</div></a>
+				<a href="#"><div class="tile__container bg--no-bg">
+					<img width="75" src="assets/img/png/icone-enchere.png" alt="Icone d'un marteau"/>
+					<p class="link--border">Enchères</p><img class="icone-link-arrow" src="assets/img/png/icone-link-arrow.png" alt="icone fleche link"/>
+				</div></a>
+				<a href="#"><div class="tile__container bg--no-bg bg--no-bg-border">
+					<img width="75" src="assets/img/png/icone-bridge.png" alt="Icone d'un jeu de carte"/>
+					<p class="link--border">Bridge</p><img class="icone-link-arrow" src="assets/img/png/icone-link-arrow.png" alt="icone fleche link"/>
+				</div></a>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="wrapper">
+	<!-- section NOTRE MISSION : présentation du lord -->
+	<section>
+		<h2>Notre mission</h2>
+		<div class="grid grid--2">
+			<div class="tile bg--tile">
+				<div class="tile__container-text-img">
+					<img class="tile__img tile__img-container tile__img--border" src="assets/img/jpg/lord-stampee.jpg" alt="Image du Lord"/>
+					<div class="tile__container-text">
+						<h3>Une plateforme pour les passionné(e)s</h3>
+						<p>
+							Lord Reginald Stampee, duc de Worcessteshear et philatéliste depuis sa
+							tendre enfance au milieu des années cinquante, Venenatis urna cursuse
+							nunc scelerisque viverra mauris in. Dolor sit amet consectetur adipiscing
+							purus sit. Vel pharetra vel turpis nunc eget lorem dolor sed. Vitae congue
+						</p>
+						<a class="btn" href="#">Lire la suite</a>
+					</div>
+				</div>
+			</div>
+			<div class="tile tile--center bg--tile">
+				<div class="tile__img-container bg--blue">
+					<p class="tile--center-text">Notre équipe est toujours prête à répondre à vos questions dans les plus bref délais !</p>
+				</div>
+				<a class="btn" href="#">Contactez-nous</a>
+			</div>
+		</div>
+	</section>
+</div>

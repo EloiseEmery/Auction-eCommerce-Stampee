@@ -1,0 +1,63 @@
+/*------------------------------------*\
+  icone / elements
+\*------------------------------------*/
+
+.icone-link-arrow {
+	height: 12px;
+	padding-left: 10px;
+	width: 8px;
+}
+
+.bg--no-bg .icone-link-arrow {
+	padding-top: 10px;
+}
+
+.icone-dropdown-arrow {
+	height: 10px;
+	padding-left: 10px;
+	width: 15px;
+}
+
+.icone-dropdown-arrow--input-bar {
+	height: 8px;
+	padding: 5px 25px 0 15px;
+	width: 13px;
+}
+
+.icone-coup-coeur {
+	height: 25px;
+	width: 25px;
+}
+
+.tile .icone-coup-coeur {
+	height: 20px;
+	width: 20px;
+}
+
+.icone-user {
+	padding-right: 10px;
+	max-width: 15px;
+}
+
+.icone-user--mobile {	
+	padding-top: 39px;
+	padding-right: 15px;
+	max-width: 22px;
+}
+
+.icone-arrow--gallery {
+	min-width: 15px;
+
+}
+
+@media only screen and (min-width: 768px) {
+	.icone-user--mobile {	
+		padding-top: 61px;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	.icone-user--mobile {	
+		display: none;
+	}
+}

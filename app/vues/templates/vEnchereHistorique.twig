@@ -1,0 +1,22 @@
+<table cellspacing="0">
+{% if offres|length != 0 %}
+	<tr>
+		<th>Date</th>
+		<th>Enchérisseurs</th>
+		<th>Mise</th>
+	</tr>
+	{% for offre in offres %}
+	<tr class="rangee">
+		<td>{{ offre.offre_date_mise }}</td>
+		<td>{{ offre.utilisateur_prenom }} {{ offre.utilisateur_nom }}</td>
+		<td><strong>{{ offre.offre_mise }}$</strong></td>
+	</tr>
+	{% endfor %}
+{% else %}
+	{% if enchere.enchere_archive == 1 %}
+	<p class="pannel-profil__text pannel-profil__text--enchere">Cette enchère n'a reçue aucune offre.</p>
+	{% else %}
+	<p class="pannel-profil__text pannel-profil__text--enchere">Aucune mise pour le moment.</p>
+	{% endif %}
+{% endif %}
+</table>

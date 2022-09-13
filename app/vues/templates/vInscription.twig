@@ -1,0 +1,37 @@
+<div class="bg bg--blue">
+	<div class="wrapper">
+		<h1>{{ titre|upper }}</h1>
+	</div>
+</div>
+<div class="hero hero--connexion">
+	<div class=" wrapper inscription">
+		<section class="wrapper">
+			<form class="connexion" method="POST" action="admin?entite=utilisateur&action=u_ajouter">
+				<div>
+					<label>Nom</label>
+					<input name="utilisateur_nom" value="{{ utilisateur.utilisateur_nom }}">
+					<span>{{ erreurs.utilisateur_nom }}</span>
+				</div> 
+				<div>
+					<label>Prénom</label>
+					<input name="utilisateur_prenom" value="{{ utilisateur.utilisateur_prenom }}">
+					<span>{{ erreurs.utilisateur_prenom }}</span>
+				</div>
+				<div>
+					<label>Courriel</label>
+					<input name="utilisateur_courriel" value="{{ utilisateur.utilisateur_courriel }}">
+					<span>{{ erreurs.utilisateur_courriel }}</span>
+				</div> 
+				<div>
+					<label>Mot de passe</label>
+					<input type="password" name="utilisateur_mdp" value="{{ utilisateur.utilisateur_mdp }}">
+					<span>{{ erreurs.utilisateur_mdp }}</span>
+				</div>
+				<input type="hidden" name="utilisateur_profil" value="1">
+				<input class="btn" type="submit" value="S'inscrire">
+			</form>
+			<p>Déjà inscrit ?</p>
+			<a class="link--border" href="admin?entite=utilisateur&action=u_connexion">Connectez-vous !</a><img class="icone-link-arrow" src="assets/img/png/icone-link-arrow.png" alt="icone fleche link"/>
+		</section>
+	</div>
+</div>

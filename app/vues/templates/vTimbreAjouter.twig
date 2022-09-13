@@ -1,0 +1,91 @@
+<section class="bg--grey">
+	<div class="wrapper">
+		<img class="icone-link-arrow" src="assets/img/png/icone-link-arrow-blue-left.png" alt="icone fleche link"/><a class="ajout-timbre__Link" href=".?entite=utilisateur&action=u_timbres">Retour à mes timbres</a>
+		<h2>{{ titre|upper }}</h2>
+		<form class="ajout-timbre" method="POST" action=".?entite=timbre&action=t_ajouter">
+			<div>	
+				<fieldset class="ajout-timbre__container" data-groupe="1">
+					<div class="ajout-timbre__container-field">
+						<label>*Nom</label>
+						<input name="timbre_nom" value="{{ timbre.timbre_nom }}">
+						<span>{{ erreurs.timbre_nom }}</span>
+					</div> 
+					<div class="ajout-timbre__container-field">
+						<label>*Tirage</label>
+						<input name="timbre_tirage" value="{{ timbre.timbre_tirage }}">
+						<span>{{ erreurs.timbre_tirage }}</span>
+					</div>
+					<div class="ajout-timbre__container-field">
+						<label>*Année d'émission</label>
+						<input name="timbre_annee_emission" value="{{ timbre.timbre_annee_emission }}">
+						<span>{{ erreurs.timbre_annee_emission }}</span>
+					</div>
+				</fieldset>  
+				<fieldset class="ajout-timbre__container" data-groupe="3">
+					<div class="ajout-timbre__container-field">
+						<label>*Couleur</label>
+						<input name="timbre_couleur" value="{{ timbre.timbre_couleur }}">
+						<span>{{ erreurs.timbre_couleur }}</span>
+					</div>
+					<div class="ajout-timbre__container-field">
+						<label>*Format</label>
+						<input name="timbre_format" value="{{ timbre.timbre_format }}">
+						<span>{{ erreurs.timbre_format }}</span>
+					</div>
+					<div class="ajout-timbre__container-field">
+						<label>*Type</label>
+						<select name="timbre_type" aria-label="select-type">
+							<option selected value="0">Choisir type</option>
+							{% for type in timbreTypes %}
+							<option value="{{ type.type_id }}">{{ type.type_timbre }}</option>
+							{% endfor %}
+						</select>
+						<span>{{ erreurs.timbre_type }}</span>
+					</div>
+				</fieldset>
+			</div>
+			<fieldset class="" data-groupe="4">
+				<div class="ajout-timbre__container-field">
+					<label>Décrivez brièvement votre timbre</label>
+					<textarea rows="5" cols="38" name="timbre_description" value="{{ timbre.timbre_description }}"></textarea>
+					<br><span>{{ erreurs.timbre_description }}</span>
+				</div>
+				<div>
+					<div class="ajout-timbre__container-field">
+						<label>*Condition</label>
+						<select name="timbre_condition" aria-label="select-condition">
+							<option selected value="0">Choisir condition</option>
+							{% for condition in timbreConditions %}
+							<option value="{{ condition.condition_id }}">{{ condition.condition_timbre }}</option>
+							{% endfor %}
+						</select>
+						<span>{{ erreurs.timbre_condition }}</span>
+					</div>
+					<div class="ajout-timbre__container-field">
+						<label>*Pays d'origine</label>
+						<select name="timbre_pays" aria-label="select-country">
+							<option selected value="0">Choisir pays</option>
+							{% for pays in timbrePaysOrigine %}
+							<option value="{{ pays.pays_id }}">{{ pays.pays_timbre }}</option>
+							{% endfor %}
+						</select>
+						<span>{{ erreurs.timbre_pays }}</span>
+					</div>
+				</div>
+			</fieldset> 
+			<fieldset data-groupe="4">
+				<label>*Certification</label>
+				<div class="wrapper--header">
+					<input checked type="radio" name="timbre_certifie" id="certifie" value="1">
+					<label for="certifie">Certifié</label>
+					<input type="radio" name="timbre_certifie" id="non-certifie" value="0">
+					<label for="non-certifie">Non Certifié</label>
+				</div>
+				<span>{{ erreurs.timbre_certifie }}</span>
+			</fieldset> 
+			<input type="hidden" name="timbre_utilisateur" value="{{ oUtilisateurConnecter.utilisateur_id }}">
+			<input class="btn btn--text-icone" type="submit" value="Ajouter">
+			<br><br><small>(*) Champs requis.</small>
+		</form>
+	</div>
+</section>

@@ -1,0 +1,25 @@
+/*------------------------------------*\
+  header / components
+\*------------------------------------*/
+
+.header {
+	display: none;
+}
+
+.header__logo {
+	display: block;
+	margin-left: 10vh;
+	margin-right: 50px;
+	padding-top: 25px;
+	width: 180px;
+}
+
+.header--bg {
+	background-color: var(--color-secondary);
+}
+
+@media only screen and (min-width: 1200px) {
+	.header {
+		display: block;
+	}
+}

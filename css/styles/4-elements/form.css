@@ -1,0 +1,366 @@
+/*------------------------------------*\
+  form / elements
+\*------------------------------------*/
+
+input {
+    outline: none;
+}
+
+select, 
+input {
+	border: 1px solid var(--color-palette-first);
+	padding: 10px
+}
+
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-image: url(../../../assets/img/png/icone-dropdown-arrow-blue.png); 
+	background-position: 125px;
+	background-repeat: no-repeat;
+	background-size: 12px;
+	font-size: var(--font-size-small);
+}
+
+.menu-secondaire__select {
+	background-position: 150px;
+	margin-right: 10px;
+}
+
+header input {
+	border-radius: 0 5px 5px 0;
+}
+
+header .input-bar__text,
+header .input-bar__input  {
+	margin-bottom: 55px;
+	margin-top: 55px;
+}
+
+footer input {
+	border-radius: 5px 0 0 5px;
+	margin-top: 0;
+}
+
+footer .input-bar__text {
+	padding-right: 20px;
+}
+
+footer .input-bar {
+	justify-content: center;
+}
+
+footer .input-bar__input {
+	max-width: 250px;
+}
+
+footer .input-bar__text,
+footer .input-bar__input  {
+	margin-bottom: 75px;
+	margin-top: 25px;
+}
+
+.input-bar {
+	display: flex;
+}
+
+.input-bar__input {
+	border: 2px solid var(--color-palette-second);
+	padding: 10px 50px 10px 50px;
+	
+	width: 100%;
+}
+
+.input-bar__text { 
+	background-color: var(--color-palette-second);
+	border: 2px solid #ADB5C5;
+	display: flex;
+	padding: 10px 10px 0px 20px;
+}
+
+.input-bar__text p {
+	color: var(--color-secondary);
+	font-size: var(--font-size-x-small);
+	font-weight: var(--font-weight-heavy);
+	text-transform: uppercase;
+}	
+
+.input-bar__text:hover { 
+	background-color: var(--color-primary-second-variation);
+}
+
+/* style barre de recherche mobile|tablet */
+.input-bar--tablet {
+	display: none;
+}
+
+.input-bar--mobile {
+	position: sticky;
+	top: 102px;
+	z-index: 4;
+}
+
+/* BARRE RECHERCHE AVANCÉE page catalogue enchère */
+.search-bar {
+	padding-right: 50px;
+}
+
+.search-bar--desktop {
+	display: none;
+}
+
+.search-bar section {
+	border-bottom: 1px solid var(--color-palette-second);
+}
+
+.search-bar section:first-of-type{
+	padding-top: 0;
+}
+
+.search-bar section:last-of-type{
+	border: none;
+}
+
+.search-bar section > div {
+	padding-bottom: 10px;
+}
+
+.search-bar h2 {
+	padding-bottom: 50px;
+	font-size: var(--font-size-regular);
+}
+
+.search-bar h2,
+.search-bar h3 {
+	color: var(--color-secondary);
+}
+
+.search-bar h3,
+.search-bar span {
+	text-transform: uppercase;
+	font-family: var(--font-primary);
+}
+
+aside .search-bar span {
+	color: var(--color-primary-second-variation);
+}
+
+.search-bar label,
+.search-bar input,
+.search-bar select {
+	color: var(--color-secondary);
+	font-family: var(--font-secondary);
+	font-size: var(--font-size-small);
+}
+
+.search-bar input,
+.search-bar select {
+	margin-left: 10px;
+	margin-right: 10px;
+	border-radius: 5px;
+}
+
+.search-bar input {
+	max-width: 75px;
+}
+
+.search-bar .btn {
+	font-size: var(--font-size-x-small);
+	margin-top: 25px;
+	max-width: none;
+	margin-left: 0;
+}
+
+.search-bar select {
+	padding-right: 40px;
+}
+
+.search-bar select {
+	margin-left: 10px;
+	margin-right: 10px;
+	border-radius: 5px;
+}
+
+input[type="checkbox"] {
+	padding:5px;
+	height: 10px;
+	width: 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none; 
+    border: 1px solid var(--color-palette-first);
+    outline: none;
+    background-color: var(--color-primary-second-variation);
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--color-palette-first)
+}
+
+
+/* PAGE CONNEXION & INSCRIPTION */
+.connexion {
+	color: var(--color-primary-second-variation);
+	font-family: var(--font-primary);
+	padding-bottom: 10px;
+	padding-top: 100px;
+}
+
+.connexion > div {
+	color:  var(--color-primary-second-variation);
+	padding-bottom: 35px;
+	display: block;
+	
+}
+
+.connexion > div input {
+	/* border-radius: 5px; */
+	width: 200px;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+
+.connexion label {
+	padding-right: 15px;
+	background-color: rgba(255, 255, 255, 0);
+}
+
+.connexion input, 
+.connexion label {
+    display: block;
+}
+
+.connexion .btn {
+	background-color: rgba(255, 255, 255, 0);
+	margin-bottom: 20px;
+}
+
+.connexion span,
+.inscription span,
+.inscription__user {
+	color: var(--color-palette-third);
+}
+
+/* PAGE AJOUT TIMBRE */
+.ajout-timbre textarea {
+	border: 1px solid var(--color-palette-first);
+}
+
+.ajout-timbre fieldset {
+	border: none;
+	margin-bottom: 10px;
+}
+
+.ajout-timbre fieldset input:not([type="radio"]),
+.ajout-timbre fieldset select {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.ajout-timbre fieldset input,
+.ajout-timbre fieldset label {
+	display: block;
+}
+
+.ajout-timbre label {
+	margin: 10px 10px 10px 0;
+	font-size: var(--font-size-small);
+	font-family: var(--font-primary);
+}
+
+.ajout-timbre fieldset select {
+	font-family: var(--font-primary);
+	background-position: 135px;
+	font-size: var(--font-size-small);
+	padding-right: 50px;
+}
+
+.ajout-timbre__container-field span {
+	color: var(--color-palette-third);
+	font-family: var(--font-primary);
+	font-size: var(--font-size-small);
+}
+
+.ajout-timbre__container-field--comments textarea {
+	background-color: var(--color-primary);
+	font-family: var(--font-primary);
+	margin-top: 10px;
+	margin-bottom: 10px;
+	min-width: 300px;
+	padding-left: 5px;
+}
+
+.ajout-timbre__container-field--comments p {
+	color: var(--color-secondary);
+}
+
+.form__select-img {
+	width: 225px;
+	background-position: 200px;
+}
+
+.form__error {
+	color: var(--color-palette-third);
+	font-family: var(--font-primary);
+	font-size: var(--font-size-small);
+}
+
+/* PAGE AJOUT ENCHERE */
+.ajout-enchere {
+	font-family: var(--font-primary);
+}
+
+.ajout-enchere .ajout-timbre__container-field {
+	margin-bottom: 20px;
+}
+
+.ajout-enchere .ajout-timbre__container-field input,
+.ajout-enchere .ajout-timbre__container-field select {
+	margin-bottom: 10px;
+	margin-top: 5px;
+}
+
+@media only screen and (min-width: 768px) {
+	.input-bar--tablet {
+		display: flex;
+		padding: 55px 100px 50px 55px;
+	}
+
+	.input-bar--tablet .input-bar__input {
+		border-radius: 0 5px 5px 0;
+	}
+
+	.input-bar--mobile {
+		display: none;
+	}	
+
+	.ajout-timbre__container {
+		display: flex;
+	}
+
+	.ajout-timbre__container-field {
+		max-width: 200px;
+		padding-right: 50px;
+	}
+
+	.ajout-timbre fieldset input:not([type="radio"]),
+	.ajout-timbre fieldset select {
+		width: 175px;
+		margin-bottom: 10px;
+	}
+}
+
+@media only screen and (min-width: 1024px) {
+	.search-bar {
+		display: block;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	.input-bar--tablet {
+		display: none;
+	}
+}

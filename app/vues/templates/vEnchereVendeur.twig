@@ -1,0 +1,6 @@
+<p><img src="assets/img/png/icone-profil.png" alt="icone-profil" width="15"/>Vendeur : {{ enchere.utilisateur_prenom }}&nbsp;{{ enchere.utilisateur_nom }}</p>
+{% for nbVente in nbVentes %}
+	{% if nbVente.timbre_utilisateur == enchere.utilisateur_id %}
+	<p>Nombre de ventes : <strong>{{ nbVente.NombreEnchereArchive }}</strong></p>
+	{% endif %}
+{% endfor %}

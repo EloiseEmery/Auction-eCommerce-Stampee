@@ -1,0 +1,66 @@
+<section class="bg--grey">
+	<div class="wrapper">
+		<img class="icone-link-arrow" src="assets/img/png/icone-link-arrow-blue-left.png" alt="icone fleche link"/><a class="ajout-timbre__Link" href=".?entite=utilisateur&action=u_timbres">Retour à mes timbres</a>
+		<h2>{{ titre|upper }} {{ timbre.timbre_nom }}</h2>	
+		<p class="pannel__messageRetourAction"><small>{{ messageRetourAction }}&nbsp;</small></p>
+		<form class="ajout-enchere" action=".?entite=image&action=i_ajouter&timbre_id={{ timbre.timbre_id }}" method="POST" enctype="multipart/form-data" >
+			<fieldset>
+				<div>
+					<label for="image_url">Fichier (tous formats | max. 1 Mo) :</label>
+					<input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
+					<input type="file" name="image_url"/>
+					<div class="ajout-timbre__container-field">
+						<span>{{ erreurs.image_url }}</span>
+					</div>
+				</div>	
+				<div>
+					<label  for="image_titre"l>Saisir un nom pour cette image : </label>
+					<input name="image_titre" value="{{  image.image_titre }}"/>
+					<div class="ajout-timbre__container-field">
+						<span>{{ erreurs.image_titre }}</span>
+					</div>
+				</div>	
+				<input type="hidden" name="timbre_id" value="{{ timbre.timbre_id }}">
+				<input type="hidden" name="image_principale" value="0">
+				<input class="btn btn--text-icone" type="submit" value="Ajouter">
+			</fieldset>
+		</form>
+	{% if images|length != 0 %}
+		<div>
+			<div>
+				<form class="ajout-enchere" action=".?entite=image&action=i_ajouterPrincipale&timbre_id={{ timbre.timbre_id }}" method="POST" enctype="multipart/form-data" >
+					<label  for="image_titre"l>Selectionnez l'image principale qui sera utilisée pour l'affichage de l'enchère : </label>
+					<select class="form__select-img" name="image_id" aria-label="select-principale-image">
+						{% for image in images %}
+						<option value="{{ image.image_id }}">{{ image.image_titre }}</option>
+						{% endfor %}
+					</select>
+					<input class="btn btn--text-icone" type="submit" value="Sélectionner">
+				</form>
+			</div>
+			<div class="wrapper--header">
+				<div class="grid grid--5-var">
+				{% for image in images %}
+					<div class="tile">
+						<div class="tile__img-wrapper">
+							<img class="tile__img" src="assets/img/timbres/{{ image.image_url }}" alt="Image d'une enchère"/>
+						</div>
+						<p class="tile__text--timbre">
+							{{ image.image_titre }}
+							{% if image.image_principale == 1 %}
+							<small>(Image principale)</small>
+							{% endif %}
+						</p><br>
+						{% if  image.image_titre != "image principale par défaut" %}
+						<a class="btn btn--text-icone" href=".?entite=image&action=i_supprimer&image_id={{ image.image_id }}&timbre_id={{image.timbre_id}}">Supprimer</a>
+						{% endif %}
+					</div>
+				{% endfor %}
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<p>Aucune image associé à ce timbre pour le moment.</p>
+	{% endif %}
+	</div>
+</section>

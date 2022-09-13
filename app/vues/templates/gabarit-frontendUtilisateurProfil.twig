@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Bienvenue sur la plateforme d'enchère Stampee</title>
+        <meta name="description" content="Site web d'enchères Stampee">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/frontend.css?v=1.1"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600;700&family=Monserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+        <script src="./script/menu.js"></script>
+		<script type="module" src="./script/main.js" defer></script>
+    </head>  
+    <body>
+		<header class="header header--bg">
+			<div class="wrapper--header">
+				<a href="."><img class="header__logo" src="assets/img/png/logo.png" alt="logo Stampee"/></a>
+				<div class="input-bar">
+					<div class="input-bar__text">
+						<p>Avancée</p>
+						<img class="icone-dropdown-arrow icone-dropdown-arrow--input-bar" src="assets/img/png/icone-dropdown-arrow-blue.png" alt="fleche dropwdown"/>
+					</div>
+					<input class="input-bar__input" type="text" id="input-bar" name="input-bar" placeholder="Trouvez une enchère"/>
+				</div>
+				<!-- Connexion/Inscription -->
+				<ul class="wrapper--header menu__sous-menu menu__sous-menu--header">
+					{% if oUtilisateurConnecter == null %}
+						<li class="menu__item"><a href="admin?entite=utilisateur&action=u_connexion">Se connecter</a></li>
+						<li class="menu__item"><a href="admin?entite=utilisateur&action=u_ajouter">Devenir membre</a></li>
+					{% elseif oUtilisateurConnecter != null %}
+						<li class="menu__item"><a href=".?entite=utilisateur&action=u_profil"><img class="icone-user" src="assets/img/png/icone-profil-white.png" alt="icone-profil" width="15"/>{{ oUtilisateurConnecter.utilisateur_prenom }} {{ oUtilisateurConnecter.utilisateur_nom }}</a></li>
+						<li class="menu__item"><a href="admin?entite=utilisateur&action=u_deconnexion">Déconnexion</a></li>
+					{% endif %}
+					<div class="menu__item menu__item--container-clock"><span data-js-clock></span></div>
+				</ul>
+			</div>
+		</header> 
+
+		<!-- Barre de navigation -->
+		<nav class="menu">
+			<!-- menu principal -->
+			<ul class="menu__list menu__list--principal">
+				<li class="menu__item menu__item--principal"><a class="menu__link" href=".?entite=enchere&action=e_lister">Catalogue d'enchères</a>
+					<ul class="menu__dropdown">
+						<li class="menu__item"><a class="menu__link" href=".?entite=enchere&action=e_lister&enchere_archive=0">En cours</a></li>
+						<li class="menu__item"><a class="menu__link" href=".?entite=enchere&action=e_lister&enchere_archive=1">Archive</a></li>
+					</ul> 
+					<img class="icone-dropdown-arrow" src="assets/img/png/icone-dropdown-arrow.png" alt="fleche dropwdown"/>
+				</li>
+				<li class="menu__item menu__item--principal"><a class="menu__link" href="#">Fonctionnement</a>
+					<ul class="menu__dropdown">
+						<li class="menu__item"><a class="menu__link" href="#">Termes et conditions</a></li>
+						<li class="menu__item"><a class="menu__link" href="#">Aide</a></li>
+						<li class="menu__item"><a class="menu__link" href="#">Contactez le webmestre</a></li>
+					</ul> 
+					<img class="icone-dropdown-arrow" src="assets/img/png/icone-dropdown-arrow.png" alt="fleche dropwdown"/>
+				</li>
+				<li class="menu__item menu__item--principal"><a class="menu__link" href="">À propos de Lord Réginald Stampee III</a>
+					<ul class="menu__dropdown">
+						<li class="menu__item"><a class="menu__link" href="#">La philatélie, c'est la vie.</a></li>
+						<li class="menu__item"><a class="menu__link" href="#">Biographie du Lord</a></li>
+						<li class="menu__item"><a class="menu__link" href="#">Historique familial</a></li>
+					</ul> 
+					<img class="icone-dropdown-arrow" src="assets/img/png/icone-dropdown-arrow.png" alt="fleche dropwdown"/>
+				</li>
+				<li class="menu__item menu__item--principal menu__border"><a class="menu__link" href="#">contactez-nous</a></li>
+			</ul>
+			<!-- menu hamburger -->
+			<div width="" class="menu__logo"><a href="."><img src="assets/img/png/logo.png" alt="logo Stampee"/></a></div>
+			<div class="input-bar input-bar--tablet">
+				<div class="input-bar__text">
+					<p>Avancée</p>
+					<img class="icone-dropdown-arrow icone-dropdown-arrow--input-bar" src="assets/img/png/icone-dropdown-arrow-blue.png" alt="fleche dropwdown"/>
+				</div>
+				<input class="input-bar__input" type="text" id="input-bar-tablet" name="input-bar" placeholder="Trouvez une enchère"/>
+			</div>
+			<div class="burger__icone">
+				<button class="burger" aria-label="burger"  data-js-burger>
+					<span class="burger__bar"></span>
+					<span class="burger__bar"></span>
+					<span class="burger__bar"></span>
+				</button>
+				{% if oUtilisateurConnecter != null %}
+					<a href=".?entite=utilisateur&action=u_profil"><img class="icone-user--mobile" src="assets/img/png/icone-profil-white.png" alt="fleche dropwdown"/></a>
+				{% endif %}
+			</div>
+			<div class="menu__item menu__item--container-clock menu__item--clock-mobile"><span data-js-clock></span></div>
+		</nav>
+
+		<!-- Barre de recherche mobile -->
+		<div class="input-bar input-bar--mobile" role="search" aria-label="search-bar-input">
+			<div class="input-bar__text">
+				<p>Avancée</p>
+				<img class="icone-dropdown-arrow icone-dropdown-arrow--input-bar" src="assets/img/png/icone-dropdown-arrow-blue.png" alt="fleche dropwdown"/>
+			</div>
+			<input class="input-bar__input" type="text" id="input-bar-mobile" name="input-bar" placeholder="Trouvez une enchère"/>
+		</div>
+
+		<!-- menu mobile -->
+		<aside class="menu__mobile menu--close" data-js-menu>
+			<!-- Bouton close -->
+			<div class="menu__close--wrapper" data-js-close>
+				<button class="menu__close" aria-label="menu-close"></button>
+			</div>
+			<!-- Contenu du menu mobile-->
+			<ul class="menu__list menu__list--mobile">
+				<li class="menu__item menu__item--principal"><a class="menu__link" href=".?entite=enchere&action=e_lister">Catalogue d'enchères</a>
+					<ul class="menu__dropdown">
+						<li class="menu__item"><a class="menu__link" href=".?entite=enchere&action=e_lister">En cours</a></li>
+						<li class="menu__item"><a class="menu__link" href=".?entite=enchere&action=e_lister">Archive</a></li>
+					</ul> 
+				</li>
+				<li class="menu__item menu__item--principal"><a class="menu__link" href="#">Fonctionnement</a>
+					<ul class="menu__dropdown">
+						<li class="menu__item"><a class="menu__link" href="#">Termes et conditions</a></li>
+						<li class="menu__item"><a class="menu__link" href="#">Aide</a></li>
+						<li class="menu__item"><a class="menu__link" href="#">Contactez le webmestre</a></li>
+					</ul> 
+				</li>
+				<li class="menu__item menu__item--principal"><a class="menu__link" href="">À propos de Lord Réginald Stampee III</a>
+					<ul class="menu__dropdown">
+						<li class="menu__item"><a class="menu__link" href="#">La philatélie, c'est la vie.</a></li>
+						<li class="menu__item"><a class="menu__link" href="#">Biographie du Lord</a></li>
+						<li class="menu__item"><a class="menu__link" href="#">Historique familial</a></li>
+					</ul> 
+				</li>
+				<li class="menu__item menu__item--principal"><a class="menu__link" href="#">contactez-nous</a></li>
+			<a href="."><img class="footer__logo menu__mobile--logo" src="assets/img/png/logo.png" alt="logo Stampee"/></a>
+			</ul>
+			<ul class="wrapper--header menu__sous-menu menu__sous-menu--mobile ">
+				{% if oUtilisateurConnecter == null %}
+					<li class="menu__item"><a href="admin?entite=utilisateur&action=u_connexion">Se connecter</a></li>
+					<li class="menu__item"><a href="admin?entite=utilisateur&action=u_ajouter">Devenir membre</a></li>
+				{% elseif oUtilisateurConnecter != null %}
+					<li class="menu__item"><a href=".?entite=utilisateur&action=u_profil"><img class="icone-user" src="assets/img/png/icone-profil-white.png" alt="fleche dropwdown"/>{{ oUtilisateurConnecter.utilisateur_prenom }} {{ oUtilisateurConnecter.utilisateur_nom }}</a></li>
+					<li class="menu__item"><a href="admin?entite=utilisateur&action=u_deconnexion">Déconnexion</a></li>
+				{% endif %}
+			</ul>
+			<!-- Connexion/Inscription -->
+		</aside>
+		<!-- Début du contenu principal -->
+		<main>
+			<nav class="bg--blue pannel-profil__menu">
+				<div class="wrapper wrapper--header pannel-profil__menu-container">
+					<li class="menu__item menu__item--profil"><a class="menu__link" href=".?entite=timbre&action=t_ajouter">Ajouter&nbsp;un&nbsp;timbre</a></li>
+					<li class="menu__item menu__item--profil"><a class="menu__link" href=".?entite=enchere&action=e_ajouter">Publier&nbsp;une&nbsp;enchère</a></li>
+				</div>
+			</nav>
+			<section class="bg--grey pannel-profil">
+				<div class="wrapper pannel-profil__container">
+					<div>
+						<a href=".?entite=utilisateur&action=u_profil"><h1><img class="pannel-profil__icone" src="assets/img/png/icone-profil-white.png" alt="icone-profil" width="20"/>Profil</h1></a>
+						<nav>
+							<li class="menu__item menu__item--profil"><a class="menu__link" href=".?entite=utilisateur&action=u_timbres">Mes timbres</a></li>
+							<li class="menu__item menu__item--profil"><a class="menu__link" href=".?entite=utilisateur&action=u_encheres">Mes&nbsp;enchères</a></li>
+							<li class="menu__item menu__item--profil"><a class="menu__link" href=".?entite=utilisateur&action=u_historique">Historique</a></li>
+							<li class="menu__item menu__item--profil"><a class="menu__link" href=".?entite=utilisateur&action=u_favoris">Favoris</a></li>
+						</nav>
+					</div>
+					<div>
+						{{ include(templateMain) }}
+					</div>
+				</div>
+			</section>
+		</main>
+		<!-- pied de page FOOTER -->
+		<footer class="footer">
+				<a href="."><img width="150" src="assets/img/png/logo.png" alt="logo Stampee"/></a>
+				<div class="wrapper grid grid--3-var-footer footer--border-white">
+					<section>
+						<h2>Accès rapides</h2>
+						<ul class="footer__menu">
+							<li class="menu__item menu__item--footer"><a class="menu__link" href="#">Actualités</a></li>
+							<li class="menu__item menu__item--footer"><a class="menu__link" href="#">La philatélie, c'est la vie</a></li>
+							<li class="menu__item menu__item--footer"><a class="menu__link" href="#">Biographie du Lord</a></li>
+							<li class="menu__item menu__item--footer"><a class="menu__link" href="#">Historique familial</a></li>
+						</ul>
+						<!-- Connexion/Inscription -->
+						<ul class="wrapper--header menu__sous-menu menu__sous-menu--footer">
+							{% if oUtilisateurConnecter == null %}
+								<li class="menu__item"><a href="admin?entite=utilisateur&action=u_connexion">Se connecter</a></li>
+								<li class="menu__item"><a href="admin?entite=utilisateur&action=u_ajouter">Devenir membre</a></li>
+							{% elseif oUtilisateurConnecter != null %}
+								<li class="menu__item"><a href=".?entite=utilisateur&action=u_profil">{{ oUtilisateurConnecter.utilisateur_prenom }} {{ oUtilisateurConnecter.utilisateur_nom }}</a></li>
+								<li class="menu__item"><a href="admin?entite=utilisateur&action=u_deconnexion">Déconnexion</a></li>
+							{% endif %}
+						</ul>
+						<br><small>© Stampee 2022, Tous droits réservés</small>
+					</section>
+					
+					<section>
+						<h2>Abonnez-vous à notre infolettre !</h2>
+						<p class="tile__text tile__text--white">
+							Prenez connaissance en avance de toutes nos nouveautés et profiter d'offres exceptionnels !
+						</p>
+						<form action="#" method="POST">
+							<div class="input-bar">
+								<input class="input-bar__input" type="text" id="input-bar-footer" name="input-bar" placeholder="Entrez votre courriel"/>
+								<div class="input-bar__text">
+									<p>S'abonner</p>
+								</div>
+							</div>
+						</form>
+						<i class="fab fa-brands fa-facebook-square fa-lg icone-social"></i>
+						<i class="fab fa-brands fa-twitter-square fa-lg icone-social"></i>
+						<i class="fab fa-instagram fa-lg icone-social"></i>
+					</section>
+
+					<section>
+						<h2>Contact & support</h2>
+						<ul class="footer__menu">
+							<li class="menu__item menu__item--footer"><a class="menu__link" href="#">Termes et conditions</a></li>
+							<li class="menu__item menu__item--footer"><a class="menu__link" href="#">Aide</a></li>
+							<li class="menu__item menu__item--footer"><a class="menu__link" href="#">Contactez le webmestre</a></li>
+							<li class="menu__item menu__item--footer"><a class="menu__link" href="#">Contactez-nous</a></li>
+						</ul>
+						<address>
+							<!-- Adresse -->
+							<p>1748 Princes St, Richmond <br> TW9 1ED, Royaume-Uni</p>
+							<!-- Telephone -->
+							<p><a href='tel:442089402218'>+442089402218</a></p>
+							<!-- Courriel -->
+							<p><a href='mailto:contact.info@stampee.co.uk'>contact.info@stampee.co.uk</a></p>
+						</address>
+					</section>
+				</div>
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,121 @@
+/*------------------------------------*\
+  hero / components
+\*------------------------------------*/
+
+.hero {
+	background-attachment: scroll;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 0) 10%), url(../../../assets/img/jpg/hero-accueil.jpg);
+	background-color: var(--color-secondary);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	justify-content: right;
+	height: auto;
+	position: relative;
+}
+
+.hero--accueil {
+	margin-bottom: 25px;
+}
+
+.hero > div:nth-child(2) {
+	margin-top: 150px;
+}
+
+.hero__text--sous-titre {
+	color: var(--color-palette-first);
+	font-weight: var(--font-weight-medium);
+}
+
+.hero__text--text-courant {
+	color: var(--color-primary-second-variation);
+	font-weight: var(--font-weight-small);
+	margin-bottom: 50px;
+}
+
+.hero__text--text-courant-var {
+	margin-bottom: 25px;
+}
+
+.hero--connexion {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 0) 10%), url(../../../assets/img/jpg/hero-accueil.jpg);
+	padding-bottom: 50px;
+}
+
+.hero--connexion section {
+	padding-top: 0;
+}
+
+/* hero page CATALOGUE */
+.hero--page-interieure {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 0) 10%), url(../../../assets/img/jpg/hero-catalogue-enchere.jpg);
+	padding-bottom: 150px;
+	padding-top: 150px;
+}
+
+.hero--page-interieure .hero__text--sous-titre {
+	padding-bottom: 50px;
+}
+
+.hero--page-interieure .btn {
+	display: block;
+	max-width: 200px;
+	margin-bottom: 15px;
+}
+
+.hero--page-interieure .btn {
+	margin-right: 15px;
+}
+
+/* hero ENCHÈRE */
+.hero--enchere {
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+.hero--enchere h2 {
+	color: var(--color-primary-second-variation);
+	font-weight: var(--font-weight-medium);
+	padding-top:0;
+}
+
+.hero--enchere span {
+	padding-right: 15px;
+}
+
+.hero--enchere-text-orange {
+	color: var(--color-palette-first);
+}
+
+.hero--enchere-text-red {
+	color: var(--color-palette-third);
+}
+
+@media only screen and (min-width: 768px) {
+	.hero {
+		background-attachment: fixed;
+	}
+
+	.hero--page-interieure .btn {
+		display: inline;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	.hero {
+		display: flex;
+	}
+
+	.hero--connexion {
+		display: block;
+	}
+
+	.hero>div:nth-child(2) {
+		margin-top: 0;
+	}
+
+	.hero--page-interieure,
+	.hero--enchere  {
+		display: block;
+	}
+}

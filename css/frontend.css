@@ -1,0 +1,59 @@
+/*-------------------------------------------------------------------*\
+  SETTINGS - Variables globales comme les polices et les couleurs
+\*-------------------------------------------------------------------*/
+
+@import "styles/1-settings/colors.css";
+@import "styles/1-settings/fonts.css";
+
+
+/*-------------------------------------------------------------------*\
+  TOOLS - Mixins et fonctions par défaut
+\*-------------------------------------------------------------------*/
+
+
+/*-------------------------------------------------------------------*\
+  GENERIC - Styles de base (réinitialisation, box-sizing, etc.)
+\*-------------------------------------------------------------------*/
+
+@import "styles/3-generic/reset.css";
+
+
+/*-------------------------------------------------------------------*\
+  ELEMENTS - Éléments HTML
+\*-------------------------------------------------------------------*/
+
+@import "styles/4-elements/form.css";
+@import "styles/4-elements/icone.css";
+@import "styles/4-elements/link.css";
+@import "styles/4-elements/table.css";
+@import "styles/4-elements/typography.css";
+
+
+/*-------------------------------------------------------------------*\
+  OBJECTS - Classes non décorées
+\*-------------------------------------------------------------------*/
+
+@import "styles/5-objects/body.css";
+
+
+/*-------------------------------------------------------------------*\
+  COMPONENTS
+\*-------------------------------------------------------------------*/
+
+@import "styles/6-components/bg.css";
+@import "styles/6-components/btn.css";
+@import "styles/6-components/burger.css";
+@import "styles/6-components/footer.css";
+@import "styles/6-components/gallery.css";
+@import "styles/6-components/grid.css";
+@import "styles/6-components/header.css";
+@import "styles/6-components/hero.css";
+@import "styles/6-components/menu.css";
+@import "styles/6-components/pannel.css";
+@import "styles/6-components/tile.css";
+@import "styles/6-components/wrapper.css";
+
+
+/*-------------------------------------------------------------------*\
+  UTILITIES - Utilitaires et !important (peu)
+\*-------------------------------------------------------------------*/

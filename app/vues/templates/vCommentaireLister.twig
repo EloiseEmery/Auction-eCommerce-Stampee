@@ -1,0 +1,30 @@
+<section class="bg bg--grey">
+	<div class="wrapper">
+	<img class="icone-link-arrow" src="assets/img/png/icone-link-arrow-blue-left.png" alt="icone fleche link"/><a class="link--blue link--border-blue" href=".?entite=enchere&action=e_afficher&enchere_id={{ enchere.enchere_id }}">Retour à l'enchère</a>
+	<h2>{{ titre|upper }}</h2>
+	<p class="pannel__messageRetourAction"><small>{{ messageRetourAction }}&nbsp;</small></p>
+	{% if commentaires|length != 0 %}
+	<div class="pannel__comments--comment-recent">
+		{% for commentaire in commentaires %}
+			<div class="wrapper--header pannel__comments--comment">
+				<div>
+					<p class="pannel__comments--comment-date"><small>Publié le {{ commentaire.commentaire_date_publication }}</small></p>
+					<p class="pannel__comments--comment-user"><img src="assets/img/png/icone-profil-white.png" alt="icone-profil" width="15"/>{{ commentaire.auteurCommentaire }}</p>
+					{% if commentaire.utilisateur_id == oUtilisateurConnecter.utilisateur_id %}
+					<p class="pannel__comments--delete"><small><a class="link--blue" href=".?entite=commentaire&action=c_supprimer&commentaire_id={{ commentaire.commentaire_id }}&enchere_id={{ enchere.enchere_id }}">Supprimer</a></small></p>
+					{% endif %}
+				</div>
+				<p class="pannel__comments--comment-text">{{ commentaire.commentaire }}</p>
+			</div>
+		{% endfor %}
+	</div>
+	{% else %}
+		<div class="bg--grey wrapper--header pannel__comments--comment">
+			<div>
+				<p class="pannel__comments--comment-date"><small>Aucun commentaire</small></p>
+			</div>
+			<p class="pannel__comments--comment-text">Soyez le premier à commenter cette enchère !</p>
+		</div>
+	{% endif %}
+	</div>
+</section>

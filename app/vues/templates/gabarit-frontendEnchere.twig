@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Bienvenue sur la plateforme d'enchère Stampee</title>
+        <meta name="description" content="Site web d'enchères Stampee">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/frontend.css?v=1.1"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600;700&family=Monserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+        <script src="./script/menu.js"></script>
+		<script type="module" src="./script/main.js" defer></script>
+    </head>  
+    <body>
+		<header class="header header--bg">
+			<div class="wrapper--header">
+				<a href="."><img class="header__logo" src="assets/img/png/logo.png" alt="logo Stampee"/></a>
+				<div class="input-bar">
+					<div class="input-bar__text">
+						<p>Avancée</p>
+						<img class="icone-dropdown-arrow icone-dropdown-arrow--input-bar" src="assets/img/png/icone-dropdown-arrow-blue.png" alt="fleche dropwdown"/>
+					</div>
+					<input class="input-bar__input" type="text" id="input-bar" name="input-bar" placeholder="Trouvez une enchère"/>
+				</div>
+				<!-- Connexion/Inscription -->
+				<ul class="wrapper--header menu__sous-menu menu__sous-menu--header">
+					{% if oUtilisateurConnecter == null %}
+						<li class="menu__item"><a href="admin?entite=utilisateur&action=u_connexion">Se connecter</a></li>
+						<li class="menu__item"><a href="admin?entite=utilisateur&action=u_ajouter">Devenir membre</a></li>
+					{% elseif oUtilisateurConnecter != null %}
+						<li class="menu__item"><a href=".?entite=utilisateur&action=u_profil"><img class="icone-user" src="assets/img/png/icone-profil-white.png" alt="icone-profil" width="15"/>{{ oUtilisateurConnecter.utilisateur_prenom }} {{ oUtilisateurConnecter.utilisateur_nom }}</a></li>
+						<li class="menu__item"><a href="admin?entite=utilisateur&action=u_deconnexion">Déconnexion</a></li>
+					{% endif %}
+					<div class="menu__item menu__item--container-clock"><span data-js-clock></span></div>
+				</ul>
+			</div>
+		</header> 
+
+		<!-- Barre de navigation -->
+		<nav class="menu">
+			<!-- menu principal -->
+			<ul class="menu__list menu__list--principal">
+				<li class="menu__item menu__item--principal"><a class="menu__link" href=".?entite=enchere&action=e_lister">Catalogue d'enchères</a>
+					<ul class="menu__dropdown">
+						<li class="menu__item"><a class="menu__link" href=".?entite=enchere&action=e_lister&enchere_archive=0">En cours</a></li>
+						<li class="menu__item"><a class="menu__link" href=".?entite=enchere&action=e_lister&enchere_archive=1">Archive</a></li>
+					</ul> 
+					<img class="icone-dropdown-arrow" src="assets/img/png/icone-dropdown-arrow.png" alt="fleche dropwdown"/>
+				</li>
+				<li class="menu__item menu__item--principal"><a class="menu__link" href="#">Fonctionnement</a>
+					<ul class="menu__dropdown">
+						<li class="menu__item"><a class="menu__link" href="#">Termes et conditions</a></li>
+						<li class="menu__item"><a class="menu__link" href="#">Aide</a></li>
+						<li class="menu__item"><a class="menu__link" href="#">Contactez le webmestre</a></li>
+					</ul> 
+					<img class="icone-dropdown-arrow" src="assets/img/png/icone-dropdown-arrow.png" alt="fleche dropwdown"/>
+				</li>
+				<li class="menu__item menu__item--principal"><a class="menu__link" href="">À propos de Lord Réginald Stampee III</a>
+					<ul class="menu__dropdown">
+						<li class="menu__item"><a class="menu__link" href="#">La philatélie, c'est la vie.</a></li>
+						<li class="menu__item"><a class="menu__link" href="#">Biographie du Lord</a></li>
+						<li class="menu__item"><a class="menu__link" href="#">Historique familial</a></li>
+					</ul> 
+					<img class="icone-dropdown-arrow" src="assets/img/png/icone-dropdown-arrow.png" alt="fleche dropwdown"/>
+				</li>
+				<li class="menu__item menu__item--principal menu__border"><a class="menu__link" href="#">contactez-nous</a></li>
+			</ul>
+			<!-- menu hamburger -->
+			<div width="" class="menu__logo"><a href="."><img src="assets/img/png/logo.png" alt="logo Stampee"/></a></div>
+			<div class="input-bar input-bar--tablet">
+				<div class="input-bar__text">
+					<p>Avancée</p>
+					<img class="icone-dropdown-arrow icone-dropdown-arrow--input-bar" src="assets/img/png/icone-dropdown-arrow-blue.png" alt="fleche dropwdown"/>
+				</div>
+				<input class="input-bar__input" type="text" id="input-bar-tablet" name="input-bar" placeholder="Trouvez une enchère"/>
+			</div>
+			<div class="burger__icone">
+				<button class="burger" aria-label="burger"  data-js-burger>
+					<span class="burger__bar"></span>
+					<span class="burger__bar"></span>
+					<span class="burger__bar"></span>
+				</button>
+				{% if oUtilisateurConnecter != null %}
+					<a href=".?entite=utilisateur&action=u_profil"><img class="icone-user--mobile" src="assets/img/png/icone-profil-white.png" alt="fleche dropwdown"/></a>
+				{% endif %}
+			</div>
+			<div class="menu__item menu__item--container-clock menu__item--clock-mobile"><span data-js-clock></span></div>
+		</nav>
+
+		<!-- Barre de recherche mobile -->
+		<div class="input-bar input-bar--mobile" role="search" aria-label="search-bar-input">
+			<div class="input-bar__text">
+				<p>Avancée</p>
+				<img class="icone-dropdown-arrow icone-dropdown-arrow--input-bar" src="assets/img/png/icone-dropdown-arrow-blue.png" alt="fleche dropwdown"/>
+			</div>
+			<input class="input-bar__input" type="text" id="input-bar-mobile" name="input-bar" placeholder="Trouvez une enchère"/>
+		</div>
+
+		<!-- menu mobile -->
+		<aside class="menu__mobile menu--close" data-js-menu>
+			<!-- Bouton close -->
+			<div class="menu__close--wrapper" data-js-close>
+				<button class="menu__close" aria-label="menu-close"></button>
+			</div>
+			<!-- Contenu du menu mobile-->
+			<ul class="menu__list menu__list--mobile">
+				<li class="menu__item menu__item--principal"><a class="menu__link" href=".?entite=enchere&action=e_lister">Catalogue d'enchères</a>
+					<ul class="menu__dropdown">
+						<li class="menu__item"><a class="menu__link" href=".?entite=enchere&action=e_lister">En cours</a></li>
+						<li class="menu__item"><a class="menu__link" href=".?entite=enchere&action=e_lister">Archive</a></li>
+					</ul> 
+				</li>
+				<li class="menu__item menu__item--principal"><a class="menu__link" href="#">Fonctionnement</a>
+					<ul class="menu__dropdown">
+						<li class="menu__item"><a class="menu__link" href="#">Termes et conditions</a></li>
+						<li class="menu__item"><a class="menu__link" href="#">Aide</a></li>
+						<li class="menu__item"><a class="menu__link" href="#">Contactez le webmestre</a></li>
+					</ul> 
+				</li>
+				<li class="menu__item menu__item--principal"><a class="menu__link" href="">À propos de Lord Réginald Stampee III</a>
+					<ul class="menu__dropdown">
+						<li class="menu__item"><a class="menu__link" href="#">La philatélie, c'est la vie.</a></li>
+						<li class="menu__item"><a class="menu__link" href="#">Biographie du Lord</a></li>
+						<li class="menu__item"><a class="menu__link" href="#">Historique familial</a></li>
+					</ul> 
+				</li>
+				<li class="menu__item menu__item--principal"><a class="menu__link" href="#">contactez-nous</a></li>
+			<a href="."><img class="footer__logo menu__mobile--logo" src="assets/img/png/logo.png" alt="logo Stampee"/></a>
+			</ul>
+			<ul class="wrapper--header menu__sous-menu menu__sous-menu--mobile ">
+				{% if oUtilisateurConnecter == null %}
+					<li class="menu__item"><a href="admin?entite=utilisateur&action=u_connexion">Se connecter</a></li>
+					<li class="menu__item"><a href="admin?entite=utilisateur&action=u_ajouter">Devenir membre</a></li>
+				{% elseif oUtilisateurConnecter != null %}
+					<li class="menu__item"><a href=".?entite=utilisateur&action=u_profil"><img class="icone-user" src="assets/img/png/icone-profil-white.png" alt="fleche dropwdown"/>{{ oUtilisateurConnecter.utilisateur_prenom }} {{ oUtilisateurConnecter.utilisateur_nom }}</a></li>
+					<li class="menu__item"><a href="admin?entite=utilisateur&action=u_deconnexion">Déconnexion</a></li>
+				{% endif %}
+			</ul>
+			<!-- Connexion/Inscription -->
+		</aside>
+		<!-- Début du contenu principal -->
+		<main>
+			<!-- HERO -->
+			{% for image in images %}
+				{% if image.enchere_id == enchere.enchere_id %}
+					{% if image.image_principale == 1 %}
+					<div class="hero hero--enchere" style="background-image: linear-gradient(to left, rgba(0, 0, 0, 0.8) 100%, rgba(0, 0, 0, 0) 10%), url(assets/img/timbres/{{ image.image_url }});">
+						<div class="wrapper">
+							<h2>Lot #{{ enchere.timbre_id }} | 
+							{% if enchere.enchere_archive != 1 %}
+							<span  class="hero--enchere-text-orange">En cours</span>
+							{% else %}
+							<span class="hero--enchere-text-red">Archivée</span>
+							{% endif %}
+							{# <img class="icone-coup-coeur" src="assets/img/png/icone-coup-de-coeur.png" alt="icone coup de coeur lord"/></h2> #}
+							<h1>{{ enchere.timbre_nom }}</h1>
+						</div>
+					</div>
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+			<!-- DETAIL ENCHERE -->
+			<section class="bg--grey-var">
+				<div class="wrapper">
+					<div class="link wrapper--header ">
+						{% if enchere.enchere_archive != 0 %}
+						<img class="icone-link-arrow" src="assets/img/png/icone-link-arrow-blue-left.png" alt="icone fleche link"/><a class="link--border-blue" href=".?entite=enchere&action=e_lister&enchere_archive=1">Retour aux archives</a>
+						{% else %}
+						<img class="icone-link-arrow" src="assets/img/png/icone-link-arrow-blue-left.png" alt="icone fleche link"/><a class="link--border-blue" href=".?entite=enchere&action=e_lister">Retour au catalogue</a>
+						{% endif %}
+					</div>
+					<div class="pannels">
+						<!-- Galerie image de l'enchère -->
+						<div class="gallery__container">
+							<div class="tile__img-wrapper tile__img-wrapper--enchere">
+								{% for image in images %}
+									{% if image.enchere_id == enchere.enchere_id %}
+										{% if image.image_principale == 1 %}
+											<img class="tile__img" src="assets/img/timbres/{{ image.image_url }}"
+													alt="Image d'une enchère" />
+										{% endif %}
+									{% endif %}
+								{% endfor %}
+							</div>
+							<div class="gallery__nav">
+								<div><a><img class="icone-arrow--gallery" width="25" src="assets/img/png/icone-link-arrow-blue-up.png" alt="flèche navigation galerie"/></a></div>
+								{% for image in images %}
+									{% if image.enchere_id == enchere.enchere_id and image.image_titre != "image principale par défaut" %}
+										<div><a><img width="100" src="assets/img/timbres/{{ image.image_url }}" alt="image de l'enchère"/></a></div>
+									{% endif %}
+								{% endfor %}
+								<div><a><img class="icone-arrow--gallery" width="25" src="assets/img/png/icone-dropdown-arrow-blue.png" alt="flèche navigation galerie"/></a></div>
+							</div>
+						</div>
+						<div class="pannels--container">
+							<div class="pannel__detail wrapper--header">
+								<!-- Navigation panneau -->
+								<div class="pannel__nav">
+									<div>
+										<a href=".?entite=enchere&action=e_afficher&enchere_id={{ enchere.enchere_id }}">
+											<img width="25" src="assets/img/png/icone-eye.png" alt="icone détail"/>
+											<p>Détails</p>
+										</a>
+									</div>
+									<div>
+										<a href=".?entite=enchere&action=e_historique&enchere_id={{ enchere.enchere_id }}">
+											<img width="25" src="assets/img/png/icone-round-arrow.png" alt="icone historique"/>
+											<p>Historique</p>
+										</a>
+									</div>
+									<div>
+										<a href=".?entite=enchere&action=e_vendeur&enchere_id={{ enchere.enchere_id }}">
+											<img width="25" src="assets/img/png/icone-profil.png" alt="icone vendeur"/>
+											<p>Vendeur</p>
+										</a>
+									</div>
+									<div>
+									{% if oUtilisateurConnecter != null %} 
+										{% if favoris == 1 %}
+										<a class="btn btn--timbre btn--text-icone" href=".?entite=favoris&action=f_supprimer&enchere_id={{ enchere.enchere_id }}&redirect=e_afficher">Favoris&nbsp;<strong class="tile__text-strong">-</strong></a>
+										{% else %}
+										<a class="btn btn--timbre btn--orange" href=".?entite=favoris&action=f_ajouter&enchere_id={{ enchere.enchere_id }}">Favoris&nbsp;<strong class="tile__text-strong">+</strong></a>
+										{% endif %}
+									{% endif %}
+									</div>
+								{# {% endif %} #}
+								</div>
+								<!-- Description panneau -->
+								<div class="pannel__text">
+									<div class="wrapper--header">
+										<div>
+											{% if enchere.enchere_archive != 1 %}
+												<p class="tile__text">Mise courante | 
+													<strong>
+															{% if nbOffres.NombreOffres != 0 %}
+															{{ nbOffres.NombreOffres }} 
+																{% if nbOffres.NombreOffres > 1 %} offres
+																{% elseif nbOffres.NombreOffres == 1 %} offre
+																{% endif %}
+															{% else %} Aucune offre.
+															{% endif %}
+													</strong>
+												</p>
+												<h2> 
+												{% if derniereOffre != 0 %}
+												{{ derniereOffre.MiseLaPlusHaute }}$
+												</h2>
+												<p class="tile__text-small"><small>dernière offre par {{ derniereOffre.DernierEnchérisseur }}</small></p>
+												{% elseif  enchere.enchere_archive != 1 %}
+												<p class="tile__text--red">Soyez le premier à miser !</p>
+												{% endif %}
+											{% else %}
+												<p class="tile__text">Mise gagnante | 
+													<strong>
+															{% if nbOffres.NombreOffres != 0 %}
+															{{ nbOffres.NombreOffres }} 
+																{% if nbOffres.NombreOffres > 1 %} offres
+																{% elseif nbOffres.NombreOffres == 1 %} offre
+																{% endif %}
+															{% else %} Aucune offre.
+															{% endif %}
+													</strong>
+												</p>
+												<h2> 
+												{% if derniereOffre != 0 %}
+												{{ derniereOffre.MiseLaPlusHaute }}$
+												</h2>
+												<p class="tile__text-small"><small>Enchère remportée par {{ derniereOffre.DernierEnchérisseur }}</small></p>
+												{% elseif  enchere.enchere_archive != 1 %}
+												<p class="tile__text--red">Soyez le premier à miser !</p>
+												{% endif %}
+											{% endif %}
+										</div>
+									</div>
+									{{ include(templateMain) }}
+								</div>
+							</div>
+							<!-- Form miser enchère panneau -->
+							<div class="pannel__form grid">
+								<div class="pannel__form--date-time">
+									{% if enchere.enchere_archive != 1 %}
+									<p>Ferme dans
+										<div class="wrapper--header tile__lot--red tile__timer" data-js-timer>
+											<strong><span class="days" data-js-enchere-day></span>d-</strong>
+											<strong><span class="hours" data-js-enchere-hour></span>h-</strong>
+											<strong><span class="minutes" data-js-enchere-min></span>m-</strong>
+											<strong><span class="seconds" data-js-enchere-sec></span>s</strong>
+											<div class="pannel__hidden" data-js-enchere-id>{{ enchere.enchere_id }}</div>
+											<div class="pannel__hidden" data-js-date-fin>{{ enchere.enchere_date_fin }}</div>
+										</div>
+									</p>
+									{% else %}
+									<p>
+										<strong class="tile__lot tile__lot--red">Terminée<br>
+										{% if oUtilisateurConnecter.utilisateur_id == derniereOffre.utilisateur_id and oUtilisateurConnecter.utilisateur_id != null %}
+										<p>Félicitation, vous avez remporté cette enchère !<br>
+										Le vendeur vous contactera sous peu pour finaliser le paiement.</p><br><br>
+										{% endif %}
+										</strong>
+									</p>
+									{% endif %}
+									<small><strong>Début:</strong> {{ enchere.enchere_date_debut }}</small><br>
+									<small><strong>Fin:</strong> {{ enchere.enchere_date_fin }}</small>
+								</div>
+								{% if enchere.enchere_archive != 1 %}
+									<div>
+									{% if "now"|date('Y-m-d') < enchere.enchere_date_debut|date('Y-m-d') %} 
+										{% set difference = date(enchere.enchere_date_debut).diff(date(now)) %}
+										{% set leftDays = difference.days %}
+										<small>
+											<strong>Débute dans 
+											{% if leftDays == 0 %}
+											{{ leftDays + 1 }} jour.
+											{% elseif leftDays == 1 %}
+											{{ leftDays + 1 }} jours.
+											{% else %}
+											{{ leftDays }} jours.
+											{% endif %}
+											</strong><br>
+											Vous devez attendre le début de cette enchère pour pouvoir miser.
+										</small>
+									{% else %}
+											{% if oUtilisateurConnecter != null %} 
+											<form class="grid grid--3-btn" method="POST" action=".?entite=enchere&action=e_miser&enchere_id={{ enchere.enchere_id }}">
+												<input name="offre_mise" placeholder="min {{ derniereOffre.MiseLaPlusHaute + 1 }}$">
+												<input class="btn btn--text-icone" type="submit" value="Miser" data-js-mise>
+												<span class="form__error">{{ erreurMise }}</span>
+											<form>
+											{% elseif  oUtilisateurConnecter == null %}
+											<p><strong>Connectez-vous pour miser !</strong></p>
+											</div>
+										{% endif %}
+									{% endif %}
+									<ul>
+										<li>Livraison internationale gratuite</li>
+										<li>Certifié : {% if enchere.timbre_certifie != 0 %} Oui
+														{% else %} Non
+														{% endif %}
+										</li>
+									<img width="175" src="assets/img/png/icone-payment.png" alt="icone options paiement"/>
+									</ul>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- COMMENTAIRES ENCHÈRE -->
+			{% if enchere.enchere_archive != 0 %}
+			<section class="wrapper">
+					<div class="link wrapper--header">
+						<h2>Commentaires</h2>
+						<a class="link--border-blue" href="?entite=commentaire&action=c_lister&enchere_id={{ enchere.enchere_id }}">Voir tous les&nbsp;commentaires</a><img class="icone-link-arrow" src="assets/img/png/icone-link-arrow-blue.png" alt="icone fleche link"/>
+					</div>
+					<div class="bg--grey-var">
+						<div class="pannel__comments"  id="recent-comment">
+							{% if oUtilisateurConnecter != null %}
+							<div class="pannel__comments--form">
+								<h3>Commenter cette enchère</h3>
+								<form class="ajout-timbre" method="POST" action=".?entite=commentaire&action=c_ajouter&enchere_id={{ enchere.enchere_id }}">
+									<div class="ajout-timbre__container-field ajout-timbre__container-field--comments">
+										<p>*Texte</p>
+										<textarea rows="8" name="commentaire" value="{{ commentaire.commentaire }}" placeholder="Saisissez un commentaire..."></textarea>
+									</div> 
+									<span class='form__error'>{{ erreurCommentaire }}</span><br><br>
+									<input class="btn btn--text-icone" type="submit" value="Publier">
+								</form>
+							</div>
+							{% endif %}
+							<div class="pannel__comments--list-comment">
+								<h3>Commentaires récents</h3>
+								<div class="pannel__comments--comment-recent">
+								{% if commentaires|length != 0 %}
+									{% set compteur = 0 %}
+									{% for commentaire in commentaires %}
+										{% set compteur = compteur + 1 %}
+										{% if compteur <= 2 %}
+										<div class="bg--grey wrapper--header pannel__comments--comment">
+											<div>
+												<p class="pannel__comments--comment-date"><small>Publié le {{ commentaire.commentaire_date_publication }}</small></p>
+												<p class="pannel__comments--comment-user"><img src="assets/img/png/icone-profil-white.png" alt="icone-profil" width="15"/>{{ commentaire.auteurCommentaire }}</p>
+											</div>
+											<p class="pannel__comments--comment-text">{{ commentaire.commentaire }}</p>
+										</div>
+										{% endif %}
+									{% endfor %}
+								{% else %}
+									<div class="bg--grey wrapper--header pannel__comments--comment">
+										<div>
+											<p class="pannel__comments--comment-date"><small>Aucun commentaire</small></p>
+										</div>
+										<p class="pannel__comments--comment-text">Soyez le premier à commenter cette enchère !</p>
+									</div>
+								{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+			</section>
+			{% endif %}
+
+			<!-- ENCHÈRES SIMILAIRES -->
+			<div class="wrapper">
+				<section>
+					<div class="link wrapper--header ">
+						<h2>Dans la même catégorie</h2>
+						<a class="link--border-blue" href="#">Tout&nbsp;afficher</a><img class="icone-link-arrow" src="assets/img/png/icone-link-arrow-blue.png" alt="icone fleche link"/>
+					</div>
+					<div class="grid grid--5-second-var">
+					</div>
+				</section>
+			</div>
+
+		</main>
+		<!-- pied de page FOOTER -->
+		<footer class="footer">
+				<a href="."><img width="150" src="assets/img/png/logo.png" alt="logo Stampee"/></a>
+				<div class="wrapper grid grid--3-var-footer footer--border-white">
+					<section>
+						<h2>Accès rapides</h2>
+						<ul class="footer__menu">
+							<li class="menu__item menu__item--footer"><a class="menu__link" href="#">Actualités</a></li>
+							<li class="menu__item menu__item--footer"><a class="menu__link" href="#">La philatélie, c'est la vie</a></li>
+							<li class="menu__item menu__item--footer"><a class="menu__link" href="#">Biographie du Lord</a></li>
+							<li class="menu__item menu__item--footer"><a class="menu__link" href="#">Historique familial</a></li>
+						</ul>
+						<!-- Connexion/Inscription -->
+						<ul class="wrapper--header menu__sous-menu menu__sous-menu--footer">
+							{% if oUtilisateurConnecter == null %}
+								<li class="menu__item"><a href="admin?entite=utilisateur&action=u_connexion">Se connecter</a></li>
+								<li class="menu__item"><a href="admin?entite=utilisateur&action=u_ajouter">Devenir membre</a></li>
+							{% elseif oUtilisateurConnecter != null %}
+								<li class="menu__item"><a href=".?entite=utilisateur&action=u_profil">{{ oUtilisateurConnecter.utilisateur_prenom }} {{ oUtilisateurConnecter.utilisateur_nom }}</a></li>
+								<li class="menu__item"><a href="admin?entite=utilisateur&action=u_deconnexion">Déconnexion</a></li>
+							{% endif %}
+						</ul>
+						<br><small>© Stampee 2022, Tous droits réservés</small>
+					</section>
+					
+					<section>
+						<h2>Abonnez-vous à notre infolettre !</h2>
+						<p class="tile__text tile__text--white">
+							Prenez connaissance en avance de toutes nos nouveautés et profiter d'offres exceptionnels !
+						</p>
+						<form action="#" method="POST">
+							<div class="input-bar">
+								<input class="input-bar__input" type="text" id="input-bar-footer" name="input-bar" placeholder="Entrez votre courriel"/>
+								<div class="input-bar__text">
+									<p>S'abonner</p>
+								</div>
+							</div>
+						</form>
+						<i class="fab fa-brands fa-facebook-square fa-lg icone-social"></i>
+						<i class="fab fa-brands fa-twitter-square fa-lg icone-social"></i>
+						<i class="fab fa-instagram fa-lg icone-social"></i>
+					</section>
+
+					<section>
+						<h2>Contact & support</h2>
+						<ul class="footer__menu">
+							<li class="menu__item menu__item--footer"><a class="menu__link" href="#">Termes et conditions</a></li>
+							<li class="menu__item menu__item--footer"><a class="menu__link" href="#">Aide</a></li>
+							<li class="menu__item menu__item--footer"><a class="menu__link" href="#">Contactez le webmestre</a></li>
+							<li class="menu__item menu__item--footer"><a class="menu__link" href="#">Contactez-nous</a></li>
+						</ul>
+						<address>
+							<!-- Adresse -->
+							<p>1748 Princes St, Richmond <br> TW9 1ED, Royaume-Uni</p>
+							<!-- Telephone -->
+							<p><a href='tel:442089402218'>+442089402218</a></p>
+							<!-- Courriel -->
+							<p><a href='mailto:contact.info@stampee.co.uk'>contact.info@stampee.co.uk</a></p>
+						</address>
+					</section>
+				</div>
+		</footer>
+	</body>
+</html>

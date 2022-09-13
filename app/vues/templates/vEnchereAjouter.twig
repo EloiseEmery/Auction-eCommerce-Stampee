@@ -1,0 +1,45 @@
+<section class="bg--grey">
+	<div class="wrapper">
+		<img class="icone-link-arrow" src="assets/img/png/icone-link-arrow-blue-left.png" alt="icone fleche link"/><a class="ajout-timbre__Link" href=".?entite=utilisateur&action=u_encheres">Retour à mes enchères</a>
+		<h2>{{ titre|upper }}</h2>
+		{% if timbres|length != 0 %}
+		<form class="ajout-enchere" method="POST" action=".?entite=enchere&action=e_ajouter">
+			<div>
+				<div class="ajout-timbre__container-field">
+					<label>*Choisir un timbre</label>
+					<select name="timbre_id" aria-label="select-your-timbre">
+						<option selected value="0">Mes timbres</option>
+						{% for timbre in timbres %}
+						<option value="{{ timbre.timbre_id }}" {{ timbre.timbre_id == enchereTimbreId ? 'selected' : '' }}>{{ timbre.timbre_nom }}</option>
+						{% endfor %}
+					</select>
+					<span>{{ erreurs.timbre_id }}</span>
+				</div>
+				<div class="ajout-timbre__container-field">
+					<div>
+						<label>*Débute : </label>
+						<input type="date" name="enchere_date_debut" value="{{ enchere.enchere_date_debut }}">
+						<span>{{ erreurs.enchere_date_debut }}</span>
+					</div>
+					<div>
+						<label>*Termine : </label>
+						<input type="date" name="enchere_date_fin" value="{{ enchere.enchere_date_fin }}">
+						<span>{{ erreurs.enchere_date_fin }}</span>
+					</div>
+				</div>
+				<div class="ajout-timbre__container-field">
+					<label>*Prix plancher</label>
+					<input name="enchere_prix_plancher" value="{{ enchere.enchere_prix_plancher }}">
+					<span>{{ erreurs.enchere_prix_plancher }}</span>
+				</div>
+			</div>
+			<input type="hidden" name="enchere_archive" value="0">
+			<input class="btn btn--text-icone" type="submit" value="Ajouter">
+			<br><br><small>(*) Tous les champs sont requis.</small>
+		</form>
+		{% else %}
+		<p class="pannel-profil__text pannel-profil__text--enchere">Veuillez ajouter des timbres afin de pouvoir publier une enchère.</p>
+		<a class="btn btn--orange" href=".?entite=timbre&action=t_ajouter">Ajouter&nbsp;un&nbsp;timbre</a>
+		{% endif %}
+	</div>
+</section>

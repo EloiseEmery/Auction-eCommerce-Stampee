@@ -1,0 +1,25 @@
+table {
+	font-family: var(--font-secondary);
+	text-align: left;
+	color: var(--color-secondary);
+}
+
+th {
+	font-size: var(--font-size-small);	
+	padding: 10px 20px 10px 0;
+}
+
+tr {
+	border-bottom: 1px solid black;
+	transition: transform .3s ease-in-out;
+}
+
+td {
+	font-size: var(--font-size-default);
+	padding: 5px 10px 5px 10px;
+}
+
+.rangee:hover {
+    background-color: var(--color-palette-third-var);
+    transform: scale(1.01);
+}

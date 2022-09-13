@@ -1,0 +1,72 @@
+/*------------------------------------*\
+  burger / components
+\*------------------------------------*/
+
+.burger { 
+	background-color: transparent;
+	cursor: pointer;
+	display: block;
+	padding-right: 25px;
+	width: fit-content;
+}
+
+.burger__icone {
+	display: flex;
+	margin-left: auto;
+}
+
+.burger__bar {
+	background-color: var(--color-primary);
+	border-radius: 5px;
+	display: block;
+	height: 3px;
+	transition: transform .3s ease;
+	width: 30px; 
+}
+
+.burger .burger__bar:not(:last-child) {
+	margin-bottom: 5px;
+}
+
+.burger:hover .burger__bar:first-child, 
+.burger:active .burger__bar:first-child {
+	transform: translateY(-3px);
+}
+
+.burger:hover .burger__bar:last-child, 
+.burger:active .burger__bar:last-child {
+	transform: translateY(3px);
+}
+
+button {
+	border: none;
+	outline: none;
+}
+
+.burger-search  {
+	margin: 25px 0 0 8vw;
+}
+
+.burger-search p {
+	text-transform: uppercase;
+	justify-content: center;
+	
+}
+
+.burger-search img {
+	padding-top: 5px;
+	padding-left: 10px;
+}
+
+@media only screen and (min-width: 1024px) {
+	.burger-search  {
+		display: none;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	.burger,
+	button {
+		display: none;
+	}
+}

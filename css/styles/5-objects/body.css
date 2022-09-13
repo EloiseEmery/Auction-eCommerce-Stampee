@@ -1,0 +1,12 @@
+/*------------------------------------*\
+  body / objects
+\*------------------------------------*/
+
+body {
+	background-color: var(--color-primary-variation);
+}
+
+body main section {
+	padding-bottom: 50px;
+	padding-top: 50px;
+}

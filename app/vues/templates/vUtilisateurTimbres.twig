@@ -1,0 +1,25 @@
+<h2>{{ titre|upper }}</h2>
+<p class="pannel__messageRetourAction"><small>{{ messageRetourAction }}&nbsp;</small></p>
+<div class="grid grid--5-var">
+	{% if timbres|length != 0 %}
+		{% for timbre in timbres %}
+		<div class="tile bg--tile bg--tile-timbre">
+			<div class="tile__wrapper">
+				{# <div class="tile__img-wrapper">
+					<img class="tile__img" src="assets/img/jpg/hero-enchere.jpg" alt="Image d'une enchère'"/>
+				</div> #}
+				<h3 class="tile__titre--timbre">{{ timbre.timbre_nom }}</h3>
+				<p class="tile__text">{{ timbre.timbre_description }}</p>
+				<div class="tile__btn-container">
+					<div><a class="btn btn--timbre" href=".?entite=image&action=i_ajouter&timbre_id={{ timbre.timbre_id }}">Gérer les images</a></div>
+					<div><a class="btn btn--timbre" href=".?entite=enchere&action=e_ajouter&enchere_timbre_id={{ timbre.timbre_id }}">Mettre&nbsp;en&nbsp;enchère</a></div>
+					<div><a class="btn btn--timbre" href=".?entite=timbre&action=t_modifier&timbre_id={{ timbre.timbre_id }}">Modifier</a></div>
+					<div><a class="btn btn--timbre" href=".?entite=timbre&action=t_supprimer&timbre_id={{ timbre.timbre_id }}">Supprimer</a></div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	{% else %}
+	<p class="pannel-profil__text pannel-profil__text--enchere">Aucun timbre ajouté.</p>
+	{% endif %}
+</div>

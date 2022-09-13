@@ -1,0 +1,35 @@
+<section class="bg--grey">
+	<div class="wrapper">
+		<img class="icone-link-arrow" src="assets/img/png/icone-link-arrow-blue-left.png" alt="icone fleche link"/><a class="ajout-timbre__Link" href=".?entite=utilisateur&action=u_encheres">Retour à mes enchères</a>
+		<h2>{{ titre|upper }}</h2>
+		<form class="ajout-enchere" method="POST" action=".?entite=enchere&action=e_modifier&enchere_id={{ enchere.enchere_id }}">
+			<div>
+				<div class="ajout-timbre__container-field">
+					<p>Timbre en enchère: <strong>{{ enchere.timbre_nom }}</strong></p>
+				</div>
+				<div class="ajout-timbre__container-field">
+					<div>
+						<label>*Débute : </label>
+						<input type="date" name="enchere_date_debut" value="{{ enchere.enchere_date_debut }}">
+						<span>{{ erreurs.enchere_date_debut }}</span>
+					</div>
+					<div>
+						<label>*Termine : </label>
+						<input type="date" name="enchere_date_fin" value="{{ enchere.enchere_date_fin }}">
+						<span>{{ erreurs.enchere_date_fin }}</span>
+					</div>
+				</div>
+				<div class="ajout-timbre__container-field">
+					<label>*Prix plancher</label>
+					<input name="enchere_prix_plancher" value="{{ enchere.enchere_prix_plancher }}">
+					<span>{{ erreurs.enchere_prix_plancher }}</span>
+				</div>
+			</div>
+			<input type="hidden" name="timbre_id" value="{{ enchere.timbre_id }}">
+			<input type="hidden" name="enchere_id" value="{{ enchere.enchere_id }}">
+			<input type="hidden" name="enchere_archive" value="0">
+			<input class="btn btn--text-icone" type="submit" value="Modifier">
+			<br><br><small>(*) Tous les champs sont requis.</small>
+		</form>
+	</div>
+</section>

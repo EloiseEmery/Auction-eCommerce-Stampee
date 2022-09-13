@@ -1,0 +1,87 @@
+<div class="wrapper--header ">
+	<h2>{{ titre|upper }}</h2>
+	<div class="link wrapper--header ">
+		<a class="link--border-blue" href=".?entite=enchere&action=e_lister">Afficher&nbsp;toutes les&nbsp;enchères</a><img class="icone-link-arrow" src="assets/img/png/icone-link-arrow-blue.png" alt="icone fleche link"/>
+	</div>
+</div>
+<p class="pannel__messageRetourAction"><small>{{ messageRetourAction }}&nbsp;</small></p>
+<div class="grid grid--5-var">
+	{% if encheres|length != 0 %}
+		{% for enchere in encheres %}
+		<div class="tile bg--tile bg--tile-timbre">
+			<div class="tile__container">
+				<div>
+					<p class="tile__lot">Lot #<strong>{{ enchere.timbre_id }}</strong></p>
+					<div class="wrapper--header tile__lot--red" data-js-timer>
+						<strong><span class="days" data-js-enchere-day></span>d-</strong>
+						<strong><span class="hours" data-js-enchere-hour></span>h-</strong>
+						<strong><span class="minutes" data-js-enchere-min></span>m-</strong>
+						<strong><span class="seconds" data-js-enchere-sec></span>s</strong>
+						<div class="pannel__hidden" data-js-enchere-id>{{ enchere.enchere_id }}</div>
+						<div class="pannel__hidden" data-js-date-fin>{{ enchere.enchere_date_fin }}</div>
+					</div>
+				</div>
+			</div>
+			<div class="tile__wrapper">
+				<div class="tile__img-wrapper">
+				{% for image in images %}
+					{% if image.enchere_id == enchere.enchere_id %}
+						{% if image.image_principale == 1 %}
+							<a href=".?entite=enchere&action=e_afficher&enchere_id={{ enchere.enchere_id }}"><img class="tile__img" src="assets/img/timbres/{{ image.image_url }}"
+									alt="Image d'une enchère" /></a>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+				</div>
+				<h3>{{ enchere.timbre_nom }}</h3>
+				{% if enchere.enchere_archive != 1 %}
+					<p class="tile__text">Mise courante | 	
+						{% for nbOffresEnchere in nbOffresEncheres %}
+							{% if enchere.enchere_id == nbOffresEnchere.EnchereId %}
+								<strong>
+									{% if nbOffresEnchere.NombreOffres != 0  %}
+									{{ nbOffresEnchere.NombreOffres }} 
+										{% if nbOffresEnchere.NombreOffres > 1 %} offres
+										{% elseif nbOffresEnchere.NombreOffres == 1 %} offre
+										{% endif %}
+									{% else %} Aucune offre.
+									{% endif %}
+								</strong>
+							{% endif %}
+						{% endfor %}
+					</p>
+					{% for derniereOffre in dernieresOffres %}
+						{% if enchere.enchere_id == derniereOffre.IdEnchereOffre %}
+						<span>{{ derniereOffre.MiseLaPlusHaute }} $</span>
+						<p class="tile__text-small"><small>dernière offre par {{ derniereOffre.DernierEnchérisseur }}</small></p>
+						{% endif %}
+					{% endfor %}
+				{% else %}
+					<p class="tile__text">Mise gagnant | 	
+						{% for nbOffresEnchere in nbOffresEncheres %}
+							{% if enchere.enchere_id == nbOffresEnchere.EnchereId %}
+								<strong>Enchère terminée</strong>
+							{% endif %}
+						{% endfor %}
+					</p>
+					{% for derniereOffre in dernieresOffres %}
+						{% if enchere.enchere_id == derniereOffre.IdEnchereOffre %}
+						<span>{{ derniereOffre.MiseLaPlusHaute }} $</span>
+						<p class="tile__text-small"><small>Enchère remportée par {{ derniereOffre.DernierEnchérisseur }}</small></p>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+				<p class="tile__text-small"><strong><small>Prix plancher : {{ enchere.enchere_prix_plancher }}$</small></strong></p>
+				<div class="tile__btn-container">
+					{% if enchere.enchere_archive != 1 %}
+					<div><a class="btn btn--timbre" href=".?entite=enchere&action=e_modifier&enchere_id={{ enchere.enchere_id }}">Modifier</a></div>
+					{% endif %}
+					<div><a class="btn btn--timbre" href=".?entite=enchere&action=e_supprimer&enchere_id={{ enchere.enchere_id }}">Supprimer</a></div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	{% else %}
+	<p class="pannel-profil__text pannel-profil__text--enchere">Aucune enchère publiée.</p>
+	{% endif %}
+</div>

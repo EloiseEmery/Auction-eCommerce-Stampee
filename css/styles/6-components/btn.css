@@ -1,0 +1,93 @@
+/*------------------------------------*\
+  btn / components
+\*------------------------------------*/
+
+.btn {
+	border: 1px solid #F9A211;
+	border-radius: 5px;
+	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+	color: var(--color-primary);
+	font-family: var(--font-secondary);
+	font-weight: var(--font-weight-heavy);
+	font-size: var(--font-size-x-small);
+	line-height: var(--line-height-medium);
+	padding: 1rem 1.5rem 1rem 1.5rem;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.btn--orange {
+	background-color: var(--color-palette-first);
+	border: none;
+	color: var(--color-secondary);
+}
+
+.btn:hover{
+	cursor: pointer;
+}
+
+.btn:hover,
+.btn--orange:hover {
+	background-color: var(--color-secondary);
+}
+
+.btn--orange:hover {
+	color: var(--color-primary-second-variation);
+}
+
+.btn__container {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.btn__container .btn:first-of-type {
+	margin-right: 20px;
+}
+
+.btn--text-icone {
+ color: var(--color-secondary);
+ font-size: var(--font-size-x-small)
+}
+
+.btn--text-icone {
+	color: var(--color-secondary);
+	font-size: var(--font-size-xx-small);
+}
+
+.btn--text-icone img {
+	padding-left: 10px;
+}
+
+
+.btn--text-icone:hover {
+	color: var(--color-primary-second-variation);
+}
+
+.btn--timbre {
+	font-size: var(--font-size-xx-small);
+}
+
+@media only screen and (min-width: 525px) {
+	.btn__container .btn:first-of-type {
+		margin-bottom: 15px;
+	}
+}
+
+@media only screen and (min-width: 852px) {
+	.btn__container .btn:first-of-type {
+		margin-bottom: 0;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	.btn__container .btn:first-of-type {
+		margin-bottom: 15px;
+	}
+}
+
+@media only screen and (min-width: 1425px) {
+	.btn__container .btn:first-of-type {
+		margin-bottom: 0;
+		margin-right: 15px;
+	}
+}

@@ -1,0 +1,344 @@
+<!-- HERO -->
+<div class="hero hero--page-interieure">
+	<div class="wrapper">
+		<h1 class="hero__text">Parcourez nos enchères</h1>
+		<h2 class="hero__text--sous-titre">Trouvez la perle rare</h2>
+		<a class="btn" href="#">Fonctionnement</a>
+		<a class="btn" href="#">Certification</a>
+		{% if oUtilisateurConnecter != null %}
+			<a class="btn btn--orange" href=".?entite=enchere&action=e_ajouter">Ajouter une enchère</a>
+		{% endif %}
+	</div>
+</div>
+
+<!-- menu secondaire BARRE RECHERCHE -->
+<div class="menu-secondaire">
+	<div class="wrapper wrapper--menu-secondaire">
+		<ul class="menu-secondaire__container">
+			<li class="menu__item menu__item--principal"><a class="menu__link" href=".?entite=enchere&action=e_lister&enchere_archive=0">En cours</a></li>
+			<li class="menu__item menu__item--principal"><a class="menu__link" href=".?entite=enchere&action=e_lister&enchere_archive=1">Archive</a></li>
+		</ul>
+		<form method="POST" action=".?entite=enchere&action=e_lister">
+			<select class="menu-secondaire__select" aria-label="select-sort-order" name="order_enchere">
+				<option disabled>Trier</option>
+				<option selected value="nouvellement_liste">Nouvellement listée</option>
+				<option value="prix_decroissant" {{ orderTri == 'prix_decroissant' ? 'selected' : '' }}>Prix décroissant</option>
+				<option value="prix_croissant" {{ orderTri == 'prix_croissant' ? 'selected' : '' }}>Prix croissant</option>
+				<option value="termine_bientot" {{ orderTri == 'termine_bientot' ? 'selected' : '' }}>Se terminant bientôt</option>
+			</select>
+			<input class="btn btn--text-icone" type="submit" value="Trier">
+		</form>
+		<div class="wrapper--header menu-secondaire__icone">
+			<div class="btn"><img src="assets/img/png/icone-gallery-1.png" alt="gallerie vertical" /></div>
+			<div class="btn"><img src="assets/img/png/icone-gallery-2.png" alt="gallerie horizontal" /></div>
+		</div>
+	</div>
+	<button class="burger burger-search btn" aria-label="burger" data-js-search>Recherche Avancée<img width="5"
+			src="assets/img/png/icone-link-arrow.png" alt="fleche dropwdown" />
+	</button>
+</div>
+<div class="menu__nav-page menu__nav-page-wrapper">
+	<div><a><img width="10" src="assets/img/png/icone-link-arrow-blue-left.png" alt="fleche dropwdown" /></a>
+	</div>
+	<div><a><span>1</span></a></div>
+	<div><a><span>2</span></a></div>
+	<div><a><span>3</span></a></div>
+	<div><a><span>4</span></a></div>
+	<div><a><span>5</span></a></div>
+	<div><a><span>...</span></a></div>
+	<div><a><span>8</span></a></div>
+	<div><a><img width="10" src="assets/img/png/icone-link-arrow-blue.png" alt="fleche dropwdown" /></a></div>
+</div>
+
+<!-- GALLERIE ENCHÈRES -->
+<div class="wrapper gallery">
+	<div class="wrapper--header">
+		<!-- RECHERCHE AVANCÉE -->
+		<div class="search-bar search-bar--desktop">
+			<h2>Recherche Avancée</h2>
+			<form method="POST" action=".?entite=enchere&action=e_lister">
+				<input type="hidden" name="advanced_search" value="advanced_search">
+				<section>
+					<h3>Condition</h3>
+					<div>
+						<input type="checkbox" name="condition" value="1">
+						<label for="parfaite">Parfaite</label>
+					</div>
+					<div>
+						<input type="checkbox" name="condition" value="2">
+						<label for="excellente">Excellente</label>
+					</div>
+					<div>
+						<input type="checkbox" name="condition" value="3">
+						<label for="bonne">Bonne</label>
+					</div>
+					<div>
+						<input type="checkbox" name="condition" value="4">
+						<label for="moyenne">Moyenne</label>
+					</div>
+					<div>
+						<input type="checkbox" name="condition" value="5">
+						<label for="endommage">Endommagé</label>
+					</div>
+				</section>
+				<section>
+					<h3>Pays d'origine</h3>
+					<select aria-label="select-country" name="pays_origine">
+						<option selected value="tous" >Tous les pays</option>
+						{% for pays in timbrePaysOrigine %}
+						<option value="{{ pays.pays_id }}" {{ paysTri == pays.pays_id ? 'selected' : '' }}>{{ pays.pays_timbre }}</option>
+						{% endfor %}
+					</select>
+				</section>
+				<section>
+					<h3>Certifié</h3>
+					<div>
+						<input type="checkbox" name="certifie" value="1">
+						<label for="general">Oui</label>
+					</div>
+					<div>
+						<input type="checkbox" name="certifie" value="0">
+						<label for="aerien">Non</label>
+					</div>
+				</section>
+				<section>
+					<h3>Type</h3>
+					<div>
+						<input type="checkbox" name="type" value="1">
+						<label for="general">Général</label>
+					</div>
+					<div>
+						<input type="checkbox" name="type" value="2">
+						<label for="aerien">Courrier Aérien</label>
+					</div>
+					<div>
+						<input type="checkbox" name="type" value="3">
+						<label for="livret">Livret</label>
+					</div>
+					<div>
+						<input type="checkbox" name="type" value="4">
+						<label for="port-du">Port dû</label>
+					</div>
+					<div>
+						<input type="checkbox" name="type" value="5">
+						<label for="carte-postale">Carte postale</label>
+					</div>
+					<div>
+						<input type="checkbox" name="type" value="6">
+						<label for="semi-postal">Semi postal</label>
+					</div>
+					<div>
+						<input type="checkbox" name="type" value="7">
+						<label for="entier-postal">Entier postal</label>
+					</div>
+				</section>
+				<section>
+					<h3>Année d'émission</h3>
+					<div class="wrapper--header">
+						<div class="wrapper--header">
+							<input type="number" name="annee_emission_min" aria-label="input-year-min">
+							<span>-</span>
+						</div>
+						<input type="number" name="annee_emission_max" aria-label="input-year-max">
+					</div>
+				</section>
+				<div class="wrapper--header">
+					<div>
+						<a class="btn btn--text-icone" 	href=".?entite=enchere&action=e_lister">Par défaut<img width="15"
+								src="assets/img/png/icone-round-arrow-orange.png"
+								alt="icone fleche par defaut" /></a>
+						<input class="btn btn--orange" type="submit" value="Chercher">
+					</div>
+				</div>
+				
+			</form>
+		</div>
+	
+		<!-- ASIDE MOBILE RECHERCHE AVANCÉE -->
+		<aside class="menu__mobile menu--close menu__mobile--white"  aria-label="aside-search-close" data-js-search-bar>
+			<!-- Bouton close -->
+			<div class="menu__close--wrapper" data-js-close-search-bar>
+				<button class="menu__close" aria-label="aside-search-close-btn"></button>
+			</div>
+
+			<div class="search-bar search-bar--mobile">
+				<form method="GET">
+					<section>
+						<h3>Condition</h3>
+						<select aria-label="select-condition">
+							<option selected value="tous">Tous</option>
+							<option value="parfaite">Parfaite</option>
+							<option value="excellente">excellente</option>
+							<option value="bonne">Bonne</option>
+							<option value="moyenne">Moyenne</option>
+							<option value="endommage">Endommagé</option>
+						</select>
+					</section>
+					<section>
+						<h3>Pays d'origine</h3>
+						<select aria-label="mobile-select-country">
+							<option selected value="tous">Tous les pays</option>
+							<option value="royaume-uni">Royaume-Uni</option>
+							<option value="etats-unis">États-unis</option>
+							<option value="canada">Canada</option>
+							<option value="australie">Australie</option>
+							<option value="chine">Chine</option>
+							<option value="france">France</option>
+							<option value="espagne">Espagne</option>
+						</select>
+					</section>
+					<section>
+						<h3>Prix</h3>
+						<div class="wrapper--header">
+							<div class="wrapper--header">
+								<input type="number" name="prix" placeholder="00.00">
+								<span>$&nbsp;-</span>
+							</div>
+							<div class="wrapper--header">
+								<input type="number" name="prix" aria-label="mobile-input-price">
+								<span>$</span>
+							</div>
+						</div>
+					</section>
+					<section>
+						<h3>Type</h3>
+						<select aria-label="select-type">
+							<option selected value="tous">Tous</option>
+							<option value="general">Général</option>
+							<option value="courier">Courier</option>
+							<option value="livret">Livret</option>
+							<option value="port-du">Port dû</option>
+							<option value="carte-postale">Carte postale</option>
+							<option value="semi-postal">Semi postal</option>
+							<option value="entier-postal">Entier postal</option>
+						</select>
+					</section>
+					<section>
+						<h3>Année d'émission</h3>
+						<div class="wrapper--header">
+							<div class="wrapper--header">
+								<input type="number" name="annee" aria-label="mobile-input-year-min">
+								<span>-</span>
+							</div>
+							<input type="number" name="annee" aria-label="mobile-input-year-max">
+						</div>
+					</section>
+					<div class="wrapper--header-mobile">
+						<div>
+							<a class="btn btn--text-icone">Par défaut<img
+									src="assets/img/png/icone-round-arrow-orange.png"
+									alt="icone fleche par defaut" /></a>
+							<a class="btn btn--text-icone" href="#">Chercher</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</aside>
+
+		<!-- CATALOGUE ENCHÈRES -->
+		<div class="wrapper--gallery">
+			<p class="gallery__text">142 enchères trouvées | 0 - 20 de 142</p>
+			<div class="grid grid--5-var">
+			{% if encheres|length != 0 %}
+				{% for enchere in encheres %}
+				<div class="tile bg--tile">
+					<a href=".?entite=enchere&action=e_afficher&enchere_id={{ enchere.enchere_id }}">
+					<div class="tile__container">
+						<div>
+							<p class="tile__lot">Lot #<strong>{{ enchere.timbre_id }}</strong></p>
+							{% if enchere.enchere_archive == 0 %}
+							<div class="wrapper--header tile__lot--red tile__timer" data-js-timer>
+								<strong><span class="days" data-js-enchere-day></span>d-</strong>
+								<strong><span class="hours" data-js-enchere-hour></span>h-</strong>
+								<strong><span class="minutes" data-js-enchere-min></span>m-</strong>
+								<strong><span class="seconds" data-js-enchere-sec></span>s</strong>
+								<div class="pannel__hidden" data-js-enchere-id>{{ enchere.enchere_id }}</div>
+								<div class="pannel__hidden" data-js-date-fin>{{ enchere.enchere_date_fin }}</div>
+							</div>
+							{% endif %}
+						</div>
+						{# <img class="icone-coup-coeur" src="assets/img/png/icone-coup-de-coeur.png" alt="icone coup de coeur lord"/> #}
+					</div>
+					<div class="tile__wrapper">
+						<div class="tile__img-wrapper">			
+							{% for image in images %}
+								{% if image.enchere_id == enchere.enchere_id %}
+									{% if image.image_principale == 1 %}
+										<img class="tile__img" src="assets/img/timbres/{{ image.image_url }}" alt="Image d'une enchère" />
+									{% endif %}
+								{% endif %}
+							{% endfor %}
+						</div>
+						<h3>{{ enchere.timbre_nom }}</h3>
+						{% if enchere.enchere_archive == 0 %}
+							<p class="tile__text">Mise courante | 	
+								{% for nbOffresEnchere in nbOffresEncheres %}
+									{% if enchere.enchere_id == nbOffresEnchere.EnchereId %}
+										<strong>
+											{% if nbOffresEnchere.NombreOffres != 0  %}
+											{{ nbOffresEnchere.NombreOffres }} 
+												{% if nbOffresEnchere.NombreOffres > 1 %} offres
+												{% elseif nbOffresEnchere.NombreOffres == 1 %} offre
+												{% endif %}
+											{% else %} Aucune offre.
+											{% endif %}
+										</strong>
+									{% endif %}
+								{% endfor %}
+							</p>
+							{% for derniereOffre in dernieresOffres %}
+								{% if enchere.enchere_id == derniereOffre.IdEnchereOffre %}
+								<span>{{ derniereOffre.MiseLaPlusHaute }} $</span>
+								<p class="tile__text-small"><small>dernière offre par {{ derniereOffre.DernierEnchérisseur }}</small></p>
+								{% endif %}
+							{% endfor %}
+							<div class="tile__btn-container">
+								<a class="btn btn--timbre btn--orange" href=".?entite=enchere&action=e_historique&enchere_id={{ enchere.enchere_id }}">
+								{% if oUtilisateurConnecter != null %} Miser
+								{% else %} Voir les détails
+								{% endif %}
+								</a>
+							</div>
+						{% else %}
+							<p class="tile__text"><strong>Enchère&nbsp;terminée</strong></p>
+							{% for derniereOffre in dernieresOffres %}
+								{% if enchere.enchere_id == derniereOffre.IdEnchereOffre %}
+								<span>{{ derniereOffre.MiseLaPlusHaute }} $</span>
+								<p class="tile__text-small"><small>Remportée par {{ derniereOffre.DernierEnchérisseur }}</small></p>
+								{% endif %}
+							{% endfor %}
+							<div class="tile__btn-container">
+								<a class="btn btn--timbre btn--orange" href=".?entite=enchere&action=e_historique&enchere_id={{ enchere.enchere_id }}"> Voir les détails</a>
+							</div>
+						{% endif %}
+					</div>
+					</a>
+				</div>
+				{% endfor %}
+			{% else %}
+				{% if enchereArchive == 0 %}
+				<p class="gallery__text">Aucune enchère en cours pour le moment.</p>
+				{% else %}
+				<p class="gallery__text">Aucune enchère archivée pour le moment.</p>
+				{% endif %}
+			{% endif %}
+			</div>
+		</div>
+	</div>
+	<div class="wrapper--header-page">
+		<div class="menu__nav-page menu__nav-page--var">
+			<div><a><img width="10" src="assets/img/png/icone-link-arrow-blue-left.png"
+						alt="fleche dropwdown" /></a></div>
+			<div><a><span>1</span></a></div>
+			<div><a><span>2</span></a></div>
+			<div><a><span>3</span></a></div>
+			<div><a><span>4</span></a></div>
+			<div><a><span>5</span></a></div>
+			<div><a><span>...</span></a></div>
+			<div><a><span>8</span></a></div>
+			<div><a><img width="10" src="assets/img/png/icone-link-arrow-blue.png" alt="fleche dropwdown" /></a>
+			</div>
+		</div>
+		<p class="gallery__text gallery__text--right">142 enchères trouvées | 0 - 20 de 142</p>
+	</div>
+</div>

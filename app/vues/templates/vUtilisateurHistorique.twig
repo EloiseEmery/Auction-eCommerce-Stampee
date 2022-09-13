@@ -1,0 +1,19 @@
+<h2>{{ titre|upper }}</h2>
+<table cellspacing="0">
+{% if historique|length != 0 %}
+	<tr>
+		<th>Date</th>
+		<th>Mise</th>
+		<th>Enchère</th>
+	</tr>
+	{% for offre in historique %}
+	<tr class="rangee">
+		<td>{{ offre.offre_date_mise }}</td>
+		<td><strong>{{ offre.offre_mise }}$</strong></td>
+		<td><a href=".?entite=enchere&action=e_historique&enchere_id={{ offre.enchere_id }}">{{ offre.timbre_nom }}</a></td>
+	</tr>
+	{% endfor %}
+{% else %}
+<p class="pannel-profil__text pannel-profil__text--enchere">Aucune mise pour le moment.</p>
+{% endif %}
+</table>

@@ -1,0 +1,19 @@
+/*------------------------------------*\
+  colors / settings
+\*------------------------------------*/
+
+:root {
+  --color-primary: #F1EFE5;
+  --color-primary-variation: #F1EFE5;
+  --color-primary-second-variation: #ffffff;
+  /* --color-secondary: #393F50; */
+  /* --color-secondary: #30384d; */
+  --color-secondary: #2b3858;
+  --color-secondary-variation: #2b3858eb;
+  --color-palette-first: #F9A211;
+  --color-palette-second: #ADB5C5;
+  --color-palette-second-var: #adb5c551;
+  --color-palette-third-var: #a2aabb;
+  --color-palette-third: #b31a17;
+  --color-dark: #201D1F;
+}

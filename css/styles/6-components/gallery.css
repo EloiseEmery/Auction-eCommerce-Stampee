@@ -1,0 +1,82 @@
+/*------------------------------------*\
+  gallery / objects
+\*------------------------------------*/
+.gallery {
+	padding-top: 50px
+}
+
+.gallery__container {
+	display: flex;
+}
+
+.gallery__container > div:last-child {
+	order: 0;
+}
+
+.gallery__container > div:first-child {
+	order: 1;
+}
+
+.gallery__text {
+	color: var(--color-secondary);
+	padding: 30px 0 50px 0 ;
+}
+
+.gallery__text {
+	padding: 25px 0 50px 0 ;
+}
+
+.gallery__text--right {
+	text-align: right;
+	padding-top: 50px;
+}
+
+.gallery__nav {
+	padding-right: 25px;
+}
+
+.gallery__nav > div {
+	border: 2px solid var(--color-primary);
+	padding-bottom: 10px;
+}
+
+.gallery__nav > div:hover {
+	border: 2px solid var(--color-palette-first);
+}
+
+.gallery__nav > div:first-of-type,
+.gallery__nav > div:last-of-type {
+	padding: 10px 30px 10px 30px;
+	border-radius: 5px;
+}
+
+.gallery__nav > div:first-of-type:hover,
+.gallery__nav > div:last-of-type:hover {
+	background-color: var(--color-primary);
+}
+
+/* ZOOM Gallerie */
+.gallery__container .tile__img-wrapper--enchere {
+	transition: transform .2s;
+	height: 400px;
+	width: auto;
+}
+
+.gallery__container .tile__img:hover {
+	transform: scale(1.6);
+}
+
+@media only screen and (min-width: 768px) {
+	.gallery__container > div:last-child {
+		order: 1;
+	}
+	
+	.gallery__container > div:first-child {
+		order: 0;
+	}
+	
+	.gallery__nav {
+		padding-right: 0;
+		padding-left: 25px;
+	}	
+}
